@@ -1,0 +1,796 @@
+<title>OfficeTone 화면설계서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+
+<style>
+:root{
+  --ground:#F6F7FB; --paper:#FFFFFF; --paper-2:#FBFCFE;
+  --ink:#141922; --ink-2:#3B455A; --muted:#67718A; --faint:#98A1B5;
+  --line:#E2E7F1; --line-soft:#EDF0F7;
+  --accent:#1F5FE0; --accent-ink:#1F5FE0; --accent-soft:#E9F0FE; --accent-line:#C3D6FA;
+  --keep:#0E7A63; --keep-soft:#E4F4EF;
+  --warn:#9A5A00; --warn-soft:#FBF0DD;
+  --mock-ground:#F4F6FA; --mock-paper:#FFFFFF;
+  --shadow:0 1px 2px rgba(20,25,34,.04), 0 8px 24px -16px rgba(20,25,34,.18);
+  --r:12px; --r-sm:8px;
+  --sans:"IBM Plex Sans KR","Noto Sans KR",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;
+  --body:"Noto Sans KR","IBM Plex Sans KR",-apple-system,BlinkMacSystemFont,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0D1016; --paper:#151A23; --paper-2:#1A202B;
+    --ink:#E8ECF5; --ink-2:#C2CAD9; --muted:#95A0B4; --faint:#6F7A8E;
+    --line:#252D3B; --line-soft:#1F2630;
+    --accent:#7AA6FF; --accent-ink:#9CBCFF; --accent-soft:#182439; --accent-line:#2C3F63;
+    --keep:#56C6AA; --keep-soft:#13261F;
+    --warn:#D9A455; --warn-soft:#2A2113;
+    --mock-ground:#11161F; --mock-paper:#171D28;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -18px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0D1016; --paper:#151A23; --paper-2:#1A202B;
+  --ink:#E8ECF5; --ink-2:#C2CAD9; --muted:#95A0B4; --faint:#6F7A8E;
+  --line:#252D3B; --line-soft:#1F2630;
+  --accent:#7AA6FF; --accent-ink:#9CBCFF; --accent-soft:#182439; --accent-line:#2C3F63;
+  --keep:#56C6AA; --keep-soft:#13261F;
+  --warn:#D9A455; --warn-soft:#2A2113;
+  --mock-ground:#11161F; --mock-paper:#171D28;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -18px rgba(0,0,0,.8);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:var(--body); font-size:15px; line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:var(--sans); text-wrap:balance; margin:0; line-height:1.3}
+p{margin:0}
+a{color:var(--accent-ink)}
+
+/* ---------- shell ---------- */
+.shell{max-width:1240px; margin:0 auto; padding:0 24px 120px; display:flex; gap:48px; align-items:flex-start}
+.rail{display:none}
+@media (min-width:1080px){
+  .rail{
+    display:block; position:sticky; top:0; flex:0 0 212px; width:212px;
+    padding:48px 0; max-height:100vh; overflow-y:auto;
+  }
+}
+.rail-title{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--faint); margin-bottom:14px}
+.rail a{
+  display:flex; gap:10px; align-items:baseline; text-decoration:none; color:var(--muted);
+  font-size:13.5px; padding:5px 0; border-left:2px solid transparent; padding-left:12px; margin-left:-14px;
+}
+.rail a:hover{color:var(--accent-ink); border-left-color:var(--accent-line)}
+.rail a .n{font-family:var(--mono); font-size:11px; color:var(--faint)}
+.main{flex:1 1 auto; min-width:0; padding-top:48px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:1px solid var(--line); padding-bottom:30px; margin-bottom:44px}
+.eyebrow{
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--accent-ink); margin-bottom:16px;
+}
+.masthead h1{font-size:clamp(32px,4.4vw,46px); font-weight:700; letter-spacing:-.02em}
+.masthead .sub{margin-top:14px; color:var(--muted); font-size:16px; max-width:62ch}
+.meta{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px;
+  background:var(--line); border:1px solid var(--line); border-radius:var(--r); overflow:hidden; margin-top:28px;
+}
+.meta div{background:var(--paper); padding:13px 16px}
+.meta dt{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--faint); margin:0 0 4px}
+.meta dd{margin:0; font-size:13.5px; color:var(--ink-2); font-weight:500}
+
+/* ---------- sections ---------- */
+section{margin-bottom:72px; scroll-margin-top:24px}
+.sec-head{display:flex; gap:14px; align-items:baseline; margin-bottom:8px}
+.sec-no{font-family:var(--mono); font-size:12px; color:var(--accent-ink); font-weight:600; flex:none}
+.sec-head h2{font-size:25px; font-weight:700; letter-spacing:-.01em}
+.sec-lede{color:var(--muted); font-size:14.5px; max-width:68ch; margin-bottom:26px}
+h3{font-size:17px; font-weight:600; margin:34px 0 12px}
+h4{font-size:14px; font-weight:600; margin:22px 0 8px; color:var(--ink-2)}
+
+.card{background:var(--paper); border:1px solid var(--line); border-radius:var(--r); box-shadow:var(--shadow)}
+.pad{padding:22px 24px}
+
+/* ---------- tables ---------- */
+.tw{overflow-x:auto; border:1px solid var(--line); border-radius:var(--r); background:var(--paper)}
+table{border-collapse:collapse; width:100%; min-width:620px; font-size:13.5px}
+th{
+  text-align:left; font-family:var(--sans); font-weight:600; font-size:11.5px; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--faint); padding:11px 16px; border-bottom:1px solid var(--line);
+  background:var(--paper-2); white-space:nowrap;
+}
+td{padding:11px 16px; border-bottom:1px solid var(--line-soft); vertical-align:top; color:var(--ink-2); line-height:1.6}
+tr:last-child td{border-bottom:0}
+td.id{font-family:var(--mono); font-size:12px; color:var(--accent-ink); white-space:nowrap; font-weight:500}
+td.k{color:var(--ink); font-weight:500; white-space:nowrap}
+.tag{
+  display:inline-block; font-family:var(--mono); font-size:10.5px; padding:2px 7px; border-radius:5px;
+  background:var(--accent-soft); color:var(--accent-ink); border:1px solid var(--accent-line); white-space:nowrap;
+}
+.tag.keep{background:var(--keep-soft); color:var(--keep); border-color:transparent}
+.tag.warn{background:var(--warn-soft); color:var(--warn); border-color:transparent}
+
+code,.mono{font-family:var(--mono); font-size:12.5px}
+code{background:var(--accent-soft); color:var(--accent-ink); padding:1px 6px; border-radius:5px}
+pre{
+  font-family:var(--mono); font-size:12.5px; line-height:1.7; background:var(--paper); color:var(--ink-2);
+  border:1px solid var(--line); border-radius:var(--r); padding:18px 20px; overflow-x:auto; margin:0;
+}
+pre .c{color:var(--faint)}
+pre .s{color:var(--keep)}
+pre .k{color:var(--accent-ink)}
+
+ul.plain{margin:0; padding-left:20px; color:var(--ink-2)}
+ul.plain li{margin:5px 0}
+ul.plain li::marker{color:var(--faint)}
+
+/* ---------- screen block ---------- */
+.screen{border:1px solid var(--line); border-radius:var(--r); overflow:hidden; background:var(--paper)}
+.screen-bar{
+  display:flex; flex-wrap:wrap; gap:10px 18px; align-items:center;
+  padding:14px 20px; border-bottom:1px solid var(--line); background:var(--paper-2);
+}
+.screen-bar .sid{
+  font-family:var(--mono); font-weight:600; font-size:12px; color:#fff; background:var(--accent);
+  padding:3px 9px; border-radius:6px; letter-spacing:.04em;
+}
+.screen-bar .nm{font-family:var(--sans); font-weight:600; font-size:16px}
+.screen-bar .rt{margin-left:auto; font-family:var(--mono); font-size:11.5px; color:var(--faint)}
+.screen-body{display:grid; grid-template-columns:1fr; gap:0}
+@media (min-width:860px){ .screen-body.split{grid-template-columns:minmax(0,1.08fr) minmax(0,1fr)} }
+.mock-wrap{background:var(--mock-ground); padding:26px 22px; border-bottom:1px solid var(--line)}
+@media (min-width:860px){ .screen-body.split .mock-wrap{border-bottom:0; border-right:1px solid var(--line)} }
+.notes{padding:22px 24px}
+.notes h4:first-child{margin-top:0}
+
+/* ---------- annotation pins ---------- */
+.pinned{position:relative}
+.pin{
+  position:absolute; z-index:3; width:19px; height:19px; border-radius:50%;
+  background:var(--accent); color:#fff; font-family:var(--mono); font-size:11px; font-weight:600;
+  display:flex; align-items:center; justify-content:center; line-height:1;
+  box-shadow:0 0 0 2.5px var(--mock-ground);
+}
+.pin.tl{top:-9px; left:-9px} .pin.tr{top:-9px; right:-9px}
+.pin.bl{bottom:-9px; left:-9px} .pin.br{bottom:-9px; right:-9px}
+.pin.ml{top:50%; left:-9px; transform:translateY(-50%)}
+
+/* ---------- product mock primitives ---------- */
+.mock{
+  background:var(--mock-paper); border:1px solid var(--line); border-radius:14px;
+  padding:20px 20px 22px; font-family:var(--body); color:var(--ink);
+}
+.mock .brand{font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:-.01em; color:var(--accent-ink)}
+.mock .back{font-family:var(--mono); font-size:11.5px; color:var(--muted)}
+.mock-top{display:flex; align-items:center; gap:10px; margin-bottom:18px}
+.m-h1{font-family:var(--sans); font-size:21px; font-weight:700; line-height:1.38; letter-spacing:-.015em}
+.m-h1 .hl{color:var(--accent-ink)}
+.m-sub{font-size:12.5px; color:var(--muted); line-height:1.6; margin-top:9px}
+.m-label{font-family:var(--sans); font-size:12px; font-weight:600; color:var(--ink-2); margin-bottom:7px; display:block}
+.m-ta{
+  background:var(--paper-2); border:1px solid var(--line); border-radius:10px; padding:12px 13px;
+  font-size:12.5px; color:var(--ink-2); line-height:1.65; min-height:72px;
+}
+.m-count{font-family:var(--mono); font-size:10.5px; color:var(--faint); text-align:right; margin-top:5px}
+.chips{display:flex; flex-wrap:wrap; gap:7px}
+.chip{
+  font-size:12px; padding:6px 12px; border-radius:999px; border:1px solid var(--line);
+  background:var(--paper-2); color:var(--muted); white-space:nowrap;
+}
+.chip.on{background:var(--accent-soft); border-color:var(--accent-line); color:var(--accent-ink); font-weight:600}
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:6px;
+  font-family:var(--sans); font-size:13px; font-weight:600; padding:11px 18px; border-radius:10px; white-space:nowrap;
+}
+.btn.p{background:var(--accent); color:#fff}
+.btn.s{background:transparent; border:1px solid var(--line); color:var(--ink-2)}
+.btn.full{display:flex; width:100%}
+.m-card{background:var(--paper-2); border:1px solid var(--line); border-radius:10px; padding:13px 14px}
+.m-card.em{background:var(--accent-soft); border-color:var(--accent-line)}
+.m-cap{font-family:var(--sans); font-size:11px; font-weight:600; color:var(--faint); margin-bottom:6px; letter-spacing:.02em}
+.m-cap.em{color:var(--accent-ink)}
+.m-text{font-size:12.5px; line-height:1.7; color:var(--ink-2); white-space:pre-line}
+.m-text b{color:var(--accent-ink); font-weight:600}
+.m-strike{color:var(--faint)}
+.chg{display:flex; flex-direction:column; gap:6px}
+.chg div{font-size:12px; color:var(--ink-2); display:flex; gap:7px; align-items:baseline}
+.chg .dot{color:var(--accent-ink); font-family:var(--mono); font-size:11px; flex:none}
+.sit-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:9px}
+.sit{
+  background:var(--paper-2); border:1px solid var(--line); border-radius:11px; padding:13px 12px;
+  display:flex; flex-direction:column; gap:6px;
+}
+.sit .ico{
+  width:26px; height:26px; border-radius:8px; background:var(--accent-soft); color:var(--accent-ink);
+  display:flex; align-items:center; justify-content:center; font-size:13px;
+}
+.sit .nm{font-family:var(--sans); font-size:12.5px; font-weight:600}
+.sit .de{font-size:11px; color:var(--muted); line-height:1.5}
+.stack{display:flex; flex-direction:column}
+.g8{gap:8px} .g12{gap:12px} .g16{gap:16px} .g20{gap:20px}
+.row{display:flex; gap:9px}
+
+/* ---------- misc ---------- */
+.callout{
+  border:1px solid var(--accent-line); background:var(--accent-soft); border-radius:var(--r);
+  padding:16px 18px; font-size:13.5px; color:var(--ink-2);
+}
+.callout b{color:var(--accent-ink)}
+.swatches{display:grid; grid-template-columns:repeat(auto-fit,minmax(132px,1fr)); gap:10px}
+.sw{border:1px solid var(--line); border-radius:var(--r-sm); overflow:hidden; background:var(--paper)}
+.sw .chipc{height:46px}
+.sw .t{padding:8px 10px; font-family:var(--mono); font-size:10.5px; color:var(--muted); line-height:1.5}
+.sw .t b{display:block; font-family:var(--sans); font-size:12px; color:var(--ink); font-weight:600; margin-bottom:2px}
+.flow{overflow-x:auto; border:1px solid var(--line); border-radius:var(--r); background:var(--paper); padding:22px}
+.flow svg{display:block; min-width:660px; width:100%; height:auto}
+.foot{border-top:1px solid var(--line); padding-top:22px; color:var(--faint); font-size:12.5px; font-family:var(--mono)}
+</style>
+
+<div class="shell">
+<nav class="rail">
+  <div class="rail-title">목차</div>
+  <a href="#overview"><span class="n">00</span> 문서 개요</a>
+  <a href="#flow"><span class="n">01</span> 화면 목록 · 흐름</a>
+  <a href="#common"><span class="n">02</span> 공통 UI 규칙</a>
+  <a href="#sc01"><span class="n">SC-01</span> 홈</a>
+  <a href="#sc02"><span class="n">SC-02</span> 문장 입력</a>
+  <a href="#sc03"><span class="n">SC-03</span> 변환 결과</a>
+  <a href="#sc04"><span class="n">SC-04</span> 상황별 표현</a>
+  <a href="#preset"><span class="n">03</span> 상황 카드 매핑</a>
+  <a href="#data"><span class="n">04</span> 데이터 · 상태</a>
+  <a href="#rules"><span class="n">05</span> 제약 사항</a>
+</nav>
+
+<main class="main">
+
+<header class="masthead">
+  <div class="eyebrow">Screen Specification · v1.0</div>
+  <h1>OfficeTone 화면설계서</h1>
+  <p class="sub">하고 싶은 말과 상대방·상황을 고르면, 원래 의도는 그대로 두고 업무용 표현으로 바꿔 주는 4화면 웹앱.
+     회원가입 없이 링크로 바로 쓰는 구조를 전제로 화면·흐름·규칙을 정의한다.</p>
+  <dl class="meta">
+    <div><dt>프로젝트</dt><dd>Discover-F-5-</dd></div>
+    <div><dt>타깃</dt><dd>업무 표현이 익숙하지 않은 신입사원</dd></div>
+    <div><dt>화면 수</dt><dd>4개 (고정)</dd></div>
+    <div><dt>기준 문서</dt><dd>아이디어_장하영 · DESIGN_SYSTEM.md</dd></div>
+    <div><dt>최종 수정</dt><dd>2026-10-04</dd></div>
+  </dl>
+</header>
+
+<!-- ============ 00 ============ -->
+<section id="overview">
+  <div class="sec-head"><span class="sec-no">00</span><h2>문서 개요</h2></div>
+  <p class="sec-lede">이 문서는 OfficeTone 웹앱을 구현하기 위한 화면 단위 설계 기준이다.
+    각 화면의 구성 요소, 상태, 전환 조건, 예외 처리를 정의하며 기획서와 디자인 가이드가 충돌할 경우 기획서를 우선한다.</p>
+
+  <h3>핵심 기능</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th style="width:68px">ID</th><th style="width:150px">기능</th><th>정의</th><th style="width:110px">관련 화면</th></tr></thead>
+      <tbody>
+        <tr><td class="id">F-01</td><td class="k">상황에 맞는 문장 변환</td>
+          <td>원문(최대 300자)과 상대방·톤앤매너·전달 채널 선택값을 받아, 핵심 내용과 기한을 유지한 업무용 표현을 제안한다.</td>
+          <td><span class="tag">SC-02</span></td></tr>
+        <tr><td class="id">F-02</td><td class="k">전후 비교와 복사</td>
+          <td>원문과 변환문을 나란히 비교하고, 무엇이 왜 바뀌었는지 짧게 확인한 뒤 복사하거나 옵션을 고쳐 다시 변환한다.</td>
+          <td><span class="tag">SC-03</span></td></tr>
+        <tr><td class="id">F-03</td><td class="k">상황별 예문</td>
+          <td>자주 쓰는 5개 상황 카드를 고르면 예문과 옵션 3종이 입력 화면에 자동으로 채워진다.</td>
+          <td><span class="tag">SC-04</span> <span class="tag">SC-02</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>설계 전제</h3>
+  <ul class="plain">
+    <li>로그인·회원가입·저장 기능 없음. 모든 상태는 세션 내 메모리로만 유지한다.</li>
+    <li>화면은 4개로 고정하며 상세 화면·예문 전용 화면을 추가하지 않는다.</li>
+    <li>문법 교정이 아니라 업무 표현의 재작성이 목적이다. 단어 단위 교정 UI는 사용하지 않는다.</li>
+    <li>제품 화면은 라이트 톤 고정(흰색·밝은 회색 배경 + 파란 포인트)이며, 본 설계서의 목업은 가독성을 위해 문서 테마를 따른다.</li>
+  </ul>
+</section>
+
+<!-- ============ 01 ============ -->
+<section id="flow">
+  <div class="sec-head"><span class="sec-no">01</span><h2>화면 목록과 사용자 흐름</h2></div>
+  <p class="sec-lede">진입은 홈 하나. 본 흐름은 변환까지 최단 2스텝이며, 상황 카드 경로도 별도 화면 없이 SC-02로 합류한다.</p>
+
+  <div class="flow">
+    <svg viewBox="0 0 980 300" role="img" aria-label="OfficeTone 화면 흐름도: 홈에서 문장 입력, 변환 결과로 이어지고 상황별 표현은 문장 입력으로 합류한다">
+      <defs>
+        <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--accent)"></path>
+        </marker>
+        <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--faint)"></path>
+        </marker>
+      </defs>
+
+      <!-- nodes -->
+      <g font-family="IBM Plex Sans KR, sans-serif">
+        <rect x="24" y="92" width="178" height="80" rx="12" fill="var(--accent-soft)" stroke="var(--accent-line)"></rect>
+        <text x="42" y="120" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--accent-ink)">SC-01</text>
+        <text x="42" y="144" font-size="15" font-weight="600" fill="var(--ink)">홈</text>
+        <text x="42" y="162" font-size="11" fill="var(--muted)">메인 카피 · 진입 2경로</text>
+
+        <rect x="392" y="92" width="178" height="80" rx="12" fill="var(--accent-soft)" stroke="var(--accent-line)"></rect>
+        <text x="410" y="120" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--accent-ink)">SC-02</text>
+        <text x="410" y="144" font-size="15" font-weight="600" fill="var(--ink)">문장 입력 · 옵션</text>
+        <text x="410" y="162" font-size="11" fill="var(--muted)">원문 + 선택 3종</text>
+
+        <rect x="760" y="92" width="178" height="80" rx="12" fill="var(--accent-soft)" stroke="var(--accent-line)"></rect>
+        <text x="778" y="120" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--accent-ink)">SC-03</text>
+        <text x="778" y="144" font-size="15" font-weight="600" fill="var(--ink)">변환 결과</text>
+        <text x="778" y="162" font-size="11" fill="var(--muted)">비교 · 이유 · 복사</text>
+
+        <rect x="208" y="226" width="178" height="62" rx="12" fill="var(--paper-2)" stroke="var(--line)"></rect>
+        <text x="226" y="250" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--muted)">SC-04</text>
+        <text x="226" y="272" font-size="14" font-weight="600" fill="var(--ink-2)">상황별 표현</text>
+      </g>
+
+      <!-- edges -->
+      <g fill="none" stroke="var(--accent)" stroke-width="1.6" marker-end="url(#ar)">
+        <path d="M202 132 H384"></path>
+        <path d="M570 132 H752"></path>
+      </g>
+      <g font-family="IBM Plex Mono, monospace" font-size="10.5" fill="var(--accent-ink)" text-anchor="middle">
+        <text x="293" y="122">문장 바꾸러 가기</text>
+        <text x="661" y="122">회사 말투로 바꾸기</text>
+      </g>
+
+      <!-- home -> sc04 -->
+      <g fill="none" stroke="var(--faint)" stroke-width="1.4" stroke-dasharray="4 4" marker-end="url(#ar2)">
+        <path d="M113 172 V257 H200"></path>
+      </g>
+      <text x="124" y="218" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="var(--muted)">상황별 표현 보기</text>
+
+      <!-- sc04 -> sc02 -->
+      <g fill="none" stroke="var(--accent)" stroke-width="1.6" marker-end="url(#ar)">
+        <path d="M386 257 H481 V180"></path>
+      </g>
+      <text x="398" y="248" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="var(--accent-ink)">카드 선택 → 예문·옵션 자동 입력</text>
+
+      <!-- sc03 -> sc02 back -->
+      <g fill="none" stroke="var(--faint)" stroke-width="1.4" stroke-dasharray="4 4" marker-end="url(#ar2)">
+        <path d="M849 92 V48 H481 V84"></path>
+      </g>
+      <text x="665" y="40" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="var(--muted)" text-anchor="middle">문장 수정하기 (입력값·옵션 유지)</text>
+    </svg>
+  </div>
+
+  <h3>화면 목록</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th style="width:74px">화면 ID</th><th style="width:140px">화면명</th><th>목적</th><th style="width:150px">진입</th><th style="width:160px">이탈</th></tr></thead>
+      <tbody>
+        <tr><td class="id">SC-01</td><td class="k">홈</td><td>서비스 가치를 한 문장으로 전달하고 두 경로 중 하나로 보낸다.</td><td>최초 진입 / 로고 클릭</td><td>SC-02, SC-04</td></tr>
+        <tr><td class="id">SC-02</td><td class="k">문장 입력 · 옵션 선택</td><td>원문과 변환 조건 3종을 한 화면에서 받는다.</td><td>SC-01, SC-04, SC-03(수정)</td><td>SC-03</td></tr>
+        <tr><td class="id">SC-03</td><td class="k">변환 결과</td><td>전후를 비교하고 이유를 확인한 뒤 복사한다.</td><td>SC-02</td><td>SC-02(수정), 복사 후 체류</td></tr>
+        <tr><td class="id">SC-04</td><td class="k">상황별 표현</td><td>빈 입력창 앞에서 막히지 않도록 예문을 고르게 한다.</td><td>SC-01</td><td>SC-02</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ 02 ============ -->
+<section id="common">
+  <div class="sec-head"><span class="sec-no">02</span><h2>공통 UI 규칙</h2></div>
+  <p class="sec-lede">네 화면이 같은 규칙을 공유한다. 강조색은 한 화면에 한 종류만 쓰고, 선택 상태는 색만이 아니라 테두리·굵기로도 구분한다.</p>
+
+  <h3>컬러 토큰</h3>
+  <div class="swatches">
+    <div class="sw"><div class="chipc" style="background:#1F5FE0"></div><div class="t"><b>Primary</b>#1F5FE0 · CTA, 선택 상태</div></div>
+    <div class="sw"><div class="chipc" style="background:#E9F0FE"></div><div class="t"><b>Primary Soft</b>#E9F0FE · 선택 칩 배경</div></div>
+    <div class="sw"><div class="chipc" style="background:#FFFFFF; box-shadow:inset 0 0 0 1px #E2E7F1"></div><div class="t"><b>Surface</b>#FFFFFF · 카드</div></div>
+    <div class="sw"><div class="chipc" style="background:#F4F6FA"></div><div class="t"><b>Ground</b>#F4F6FA · 페이지 배경</div></div>
+    <div class="sw"><div class="chipc" style="background:#E2E7F1"></div><div class="t"><b>Line</b>#E2E7F1 · 테두리</div></div>
+    <div class="sw"><div class="chipc" style="background:#141922"></div><div class="t"><b>Ink</b>#141922 · 본문</div></div>
+  </div>
+
+  <h3>컴포넌트 명세</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th style="width:84px">ID</th><th style="width:130px">컴포넌트</th><th>규칙</th><th style="width:170px">사용처</th></tr></thead>
+      <tbody>
+        <tr><td class="id">C-BTN-P</td><td class="k">Primary 버튼</td><td>파란 Filled, 반경 10px, 높이 44px 이상. 한 화면에 하나만 배치한다.</td><td>문장 바꾸러 가기 · 회사 말투로 바꾸기 · 복사하기</td></tr>
+        <tr><td class="id">C-BTN-S</td><td class="k">Secondary 버튼</td><td>흰 배경 + 1px 테두리. Primary 옆이나 아래에 둔다.</td><td>상황별 표현 보기 · 문장 수정하기</td></tr>
+        <tr><td class="id">C-CHIP</td><td class="k">선택 칩</td><td>Rounded 999px. 선택 시 배경 Primary Soft + 테두리 Primary + 굵기 600. 같은 그룹 내 단일 선택, 항상 1개는 선택된 상태를 유지한다.</td><td>상대방 · 톤앤매너 · 전달 채널</td></tr>
+        <tr><td class="id">C-TA</td><td class="k">원문 입력창</td><td>최소 5줄, 최대 300자. 하단 우측에 <code>n/300</code> 카운터. 290자부터 카운터를 경고색으로 바꾼다.</td><td>SC-02</td></tr>
+        <tr><td class="id">C-CARD</td><td class="k">카드</td><td>흰 배경, 1px 테두리, 반경 11~14px, 그림자는 거의 없는 수준. hover 시 테두리만 진해진다.</td><td>SC-03 비교 카드 · SC-04 상황 카드</td></tr>
+        <tr><td class="id">C-TOAST</td><td class="k">복사 피드백</td><td>복사 직후 버튼 라벨을 <code>복사했어요</code>로 1.5초간 교체. 별도 모달·토스트를 띄우지 않는다.</td><td>SC-03</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>타이포 · 간격</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th style="width:150px">역할</th><th style="width:150px">크기 / 굵기</th><th>적용</th></tr></thead>
+      <tbody>
+        <tr><td class="k">메인 카피</td><td class="mono">32–40px / 700</td><td>SC-01 두 줄 구조, 둘째 줄만 Primary 강조</td></tr>
+        <tr><td class="k">화면 제목</td><td class="mono">20–24px / 700</td><td>SC-02·SC-03·SC-04 상단</td></tr>
+        <tr><td class="k">본문 · 입력</td><td class="mono">15–16px / 400</td><td>원문, 변환문, 카드 설명</td></tr>
+        <tr><td class="k">그룹 라벨</td><td class="mono">13px / 600</td><td>상대방 · 톤앤매너 · 전달 채널</td></tr>
+        <tr><td class="k">보조 정보</td><td class="mono">12–13px / 400</td><td>글자 수, 변경 이유, 캡션</td></tr>
+        <tr><td class="k">섹션 간격</td><td class="mono">24–32px</td><td>옵션 그룹 사이는 24px, 입력-옵션 블록 사이는 32px</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ SC-01 ============ -->
+<section id="sc01">
+  <div class="sec-head"><span class="sec-no">SC-01</span><h2>홈</h2></div>
+  <p class="sec-lede">첫 화면에서 해야 할 일은 하나다. &ldquo;이 서비스가 무엇을 해 주는지&rdquo;를 한 문장으로 알리고 입력 화면으로 보낸다.</p>
+
+  <div class="screen">
+    <div class="screen-bar"><span class="sid">SC-01</span><span class="nm">홈</span><span class="rt">진입: 최초 로드 · 이탈: SC-02 / SC-04</span></div>
+    <div class="screen-body split">
+      <div class="mock-wrap">
+        <div class="mock pinned">
+          <span class="pin tl">1</span>
+          <div class="mock-top"><span class="brand">OfficeTone</span></div>
+          <div class="stack g20">
+            <div class="pinned">
+              <span class="pin tr">2</span>
+              <div class="m-h1">하고 싶은 말을,<br><span class="hl">회사에서 할 수 있는 말로.</span></div>
+              <div class="m-sub">상대방과 상황만 고르면, 원래 뜻은 그대로 두고<br>업무에 맞는 표현으로 바꿔 드려요.</div>
+            </div>
+            <div class="row pinned">
+              <span class="pin bl">3</span>
+              <span class="btn p">문장 바꾸러 가기</span>
+              <span class="btn s">상황별 표현 보기</span>
+            </div>
+            <div class="m-card pinned">
+              <span class="pin tr">4</span>
+              <div class="stack g8">
+                <div><div class="m-cap">이렇게 바뀌어요</div>
+                  <div class="m-text m-strike">자료 왜 아직 안 주셨어요?</div></div>
+                <div class="m-text" style="color:var(--accent-ink)">↓</div>
+                <div class="m-text">지난번 요청드린 자료의 전달 일정 확인 부탁드립니다.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="notes">
+        <h4>영역 정의</h4>
+        <div class="tw" style="border:0">
+          <table style="min-width:0">
+            <tbody>
+              <tr><td class="id">1</td><td>서비스 로고. 다른 화면에서 클릭 시 홈으로 복귀한다.</td></tr>
+              <tr><td class="id">2</td><td>메인 카피 2줄. 둘째 줄 &ldquo;회사에서 할 수 있는 말로.&rdquo;에만 Primary 강조를 적용한다. 아래 서브 카피는 2줄을 넘기지 않는다.</td></tr>
+              <tr><td class="id">3</td><td><span class="tag">C-BTN-P</span> 문장 바꾸러 가기 → SC-02(빈 입력 상태) · <span class="tag">C-BTN-S</span> 상황별 표현 보기 → SC-04</td></tr>
+              <tr><td class="id">4</td><td>전후 샘플 카드. 기획 확정 샘플 5종을 순환 노출하며, 클릭 동작은 없다(읽기 전용).</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h4>상태</h4>
+        <ul class="plain">
+          <li><b>기본</b> — 샘플 카드가 4초 간격으로 교체된다. 전환은 짧은 페이드만 사용한다.</li>
+          <li><b>모바일(&lt;720px)</b> — 샘플 카드가 버튼 아래로 내려가고, 버튼은 세로 100% 폭으로 쌓인다.</li>
+          <li><b>reduced-motion</b> — 샘플 순환을 멈추고 첫 샘플만 고정 노출한다.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h4>샘플 카드 문구 (5종, 순환)</h4>
+  <div class="tw">
+    <table>
+      <thead><tr><th style="width:44px">#</th><th style="width:44%">원문</th><th>변환문</th></tr></thead>
+      <tbody>
+        <tr><td class="id">1</td><td>자료 왜 아직 안 주셨어요?</td><td>지난번 요청드린 자료의 전달 일정 확인 부탁드립니다.</td></tr>
+        <tr><td class="id">2</td><td>이건 제 일 아닌데요.</td><td>해당 업무는 제 담당이 아닌 것 같아, 담당자분을 함께 확인해 보면 좋겠습니다.</td></tr>
+        <tr><td class="id">3</td><td>메일 보냈는데 왜 답이 없어요?</td><td>지난주 보내드린 메일 확인 부탁드립니다. 회신 주시면 감사하겠습니다.</td></tr>
+        <tr><td class="id">4</td><td>오늘은 못 해요. 바빠요.</td><td>현재 진행 중인 업무가 있어 오늘 처리는 어려울 것 같습니다. 내일 오전까지 전달드려도 괜찮을까요?</td></tr>
+        <tr><td class="id">5</td><td>회의 꼭 해야 돼요?</td><td>이번 안건은 메일 공유로도 정리될 것 같은데, 회의가 필요한 부분이 있을까요?</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ SC-02 ============ -->
+<section id="sc02">
+  <div class="sec-head"><span class="sec-no">SC-02</span><h2>문장 입력 · 옵션 선택</h2></div>
+  <p class="sec-lede">입력과 조건 선택을 한 화면에서 끝낸다. 단계를 쪼개지 않고, 어떤 경로로 들어와도 같은 레이아웃을 쓴다.</p>
+
+  <div class="screen">
+    <div class="screen-bar"><span class="sid">SC-02</span><span class="nm">문장 입력 · 옵션 선택</span><span class="rt">진입: SC-01 / SC-04 / SC-03 · 이탈: SC-03</span></div>
+    <div class="screen-body split">
+      <div class="mock-wrap">
+        <div class="mock">
+          <div class="mock-top"><span class="back">← 뒤로</span><span class="brand" style="margin-left:auto">OfficeTone</span></div>
+          <div class="stack g20">
+            <div class="pinned">
+              <span class="pin tl">1</span>
+              <span class="m-label">하고 싶은 말</span>
+              <div class="m-ta">어제 말한 정리 자료 아직이에요? 오늘 안에 주세요.</div>
+              <div class="m-count pinned"><span class="pin ml">2</span>26/300</div>
+            </div>
+            <div class="pinned">
+              <span class="pin tl">3</span>
+              <span class="m-label">상대방</span>
+              <div class="chips">
+                <span class="chip">상사</span><span class="chip">동료</span>
+                <span class="chip on">후배</span><span class="chip">외부 고객</span>
+              </div>
+            </div>
+            <div class="pinned">
+              <span class="pin tl">4</span>
+              <span class="m-label">톤앤매너</span>
+              <div class="chips">
+                <span class="chip">부드럽게</span><span class="chip on">기본</span><span class="chip">격식 있게</span>
+              </div>
+            </div>
+            <div class="pinned">
+              <span class="pin tl">5</span>
+              <span class="m-label">전달 채널</span>
+              <div class="chips"><span class="chip on">메신저</span><span class="chip">이메일</span></div>
+            </div>
+            <div class="pinned"><span class="pin tr">6</span><span class="btn p full">회사 말투로 바꾸기</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="notes">
+        <h4>영역 정의</h4>
+        <div class="tw" style="border:0">
+          <table style="min-width:0">
+            <tbody>
+              <tr><td class="id">1</td><td><span class="tag">C-TA</span> 원문 입력창. 화면에서 가장 먼저 인지되도록 옵션 영역보다 큰 면적을 차지한다. placeholder는 <code>바꾸고 싶은 문장을 그대로 적어 주세요.</code></td></tr>
+              <tr><td class="id">2</td><td>글자 수 카운터. 300자 초과 입력은 받지 않는다.</td></tr>
+              <tr><td class="id">3</td><td>상대방 — 상사 / 동료 / 후배 / 외부 고객 (단일 선택, 기본값 동료)</td></tr>
+              <tr><td class="id">4</td><td>톤앤매너 — 부드럽게 / 기본 / 격식 있게 (단일 선택, 기본값 기본)</td></tr>
+              <tr><td class="id">5</td><td>전달 채널 — 메신저 / 이메일 (단일 선택, 기본값 메신저)</td></tr>
+              <tr><td class="id">6</td><td><span class="tag">C-BTN-P</span> 회사 말투로 바꾸기 → SC-03. 원문이 비어 있으면 비활성.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h4>상태</h4>
+        <ul class="plain">
+          <li><b>빈 상태</b> — SC-01에서 진입. 입력창 비어 있고 옵션은 기본값, CTA 비활성.</li>
+          <li><b>자동 입력</b> — SC-04 카드 선택으로 진입. 예문과 옵션 3종이 채워진 상태로 열리며 CTA는 바로 활성. 안내 배너·모달은 띄우지 않는다.</li>
+          <li><b>수정 복귀</b> — SC-03의 문장 수정하기로 진입. 직전 원문과 옵션을 그대로 유지한다.</li>
+          <li><b>변환 중</b> — CTA 라벨을 <code>바꾸는 중…</code>으로 바꾸고 중복 제출을 막는다.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:18px">
+    <b>옵션 선택 규칙 —</b> 세 그룹 모두 항상 1개가 선택된 상태다. 해제 상태를 허용하지 않으므로 &ldquo;선택 안 함&rdquo; 칩을 만들지 않는다.
+    선택 여부가 색 차이만으로 미묘하게 보이지 않도록 테두리와 굵기를 함께 바꾼다.
+  </div>
+</section>
+
+<!-- ============ SC-03 ============ -->
+<section id="sc03">
+  <div class="sec-head"><span class="sec-no">SC-03</span><h2>변환 결과</h2></div>
+  <p class="sec-lede">무엇이 어떻게 바뀌었는지 10초 안에 납득시키는 화면. 단어 단위 교정 표시 대신 변화의 성격을 문장으로 설명한다.</p>
+
+  <div class="screen">
+    <div class="screen-bar"><span class="sid">SC-03</span><span class="nm">변환 결과</span><span class="rt">진입: SC-02 · 이탈: SC-02(수정) / 복사 후 체류</span></div>
+    <div class="screen-body split">
+      <div class="mock-wrap">
+        <div class="mock">
+          <div class="mock-top"><span class="back">← 뒤로</span><span class="brand" style="margin-left:auto">OfficeTone</span></div>
+          <div class="stack g16">
+            <div class="m-h1" style="font-size:18px">변환 완료</div>
+            <div class="m-card pinned">
+              <span class="pin tl">1</span>
+              <div class="m-cap">기존 문장</div>
+              <div class="m-text m-strike">어제 말한 정리 자료 아직이에요? 오늘 안에 주세요.</div>
+            </div>
+            <div class="m-card em pinned">
+              <span class="pin tl">2</span>
+              <div class="m-cap em">변환된 문장</div>
+              <div class="m-text">어제 이야기한 정리 자료, 진행 상황이 어떤지 궁금해요.
+가능하면 오늘 중으로 <b>공유 부탁드려요</b>!</div>
+            </div>
+            <div class="pinned">
+              <span class="pin tl">3</span>
+              <div class="m-cap" style="margin-bottom:8px">이렇게 바뀌었어요</div>
+              <div class="chg">
+                <div><span class="dot">→</span><span>재촉하는 질문 → 진행 상황 확인 표현으로 변경</span></div>
+                <div><span class="dot">→</span><span>지시형 문장을 부드러운 요청으로 변경</span></div>
+                <div><span class="dot">→</span><span>핵심 내용(자료·오늘까지)은 그대로 유지</span></div>
+              </div>
+            </div>
+            <div class="row pinned">
+              <span class="pin br">4</span>
+              <span class="btn p" style="flex:1; justify-content:center">복사하기</span>
+              <span class="btn s">문장 수정하기</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="notes">
+        <h4>영역 정의</h4>
+        <div class="tw" style="border:0">
+          <table style="min-width:0">
+            <tbody>
+              <tr><td class="id">1</td><td>기존 문장 카드. 회색 계열로 한 단계 낮춰 표현하고 줄바꿈을 원문 그대로 유지한다.</td></tr>
+              <tr><td class="id">2</td><td>변환된 문장 카드. Primary Soft 배경으로 시각적 우위를 준다. 문장 내 핵심 표현 1곳만 굵기·색으로 가볍게 강조한다.</td></tr>
+              <tr><td class="id">3</td><td>이렇게 바뀌었어요 — 최대 3줄. <code>A → B</code> 형식의 변화 설명과 &ldquo;핵심 내용 유지&rdquo; 한 줄을 포함한다.</td></tr>
+              <tr><td class="id">4</td><td><span class="tag">C-BTN-P</span> 복사하기(변환문 전체를 클립보드로) · <span class="tag">C-BTN-S</span> 문장 수정하기 → SC-02</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h4>상태 · 예외</h4>
+        <ul class="plain">
+          <li><b>복사 완료</b> — <span class="tag">C-TOAST</span> 버튼 라벨이 <code>복사했어요</code>로 1.5초간 바뀐다.</li>
+          <li><b>결과 없음</b> — 샘플 데이터에 없는 문장일 때: <span class="tag warn">안내</span> &ldquo;샘플 데이터에 없는 문장이라 변환 결과를 보여드릴 수 없어요. 기본 예문을 그대로 쓰거나, 상황별 표현에서 예문을 골라 주세요.&rdquo; 와 함께 SC-04로 가는 보조 버튼을 노출한다.</li>
+          <li><b>클립보드 차단</b> — 복사 실패 시 변환문 영역을 전체 선택 상태로 바꾸고 &ldquo;직접 복사해 주세요&rdquo;를 보조 문구로 표시한다.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SC-04 ============ -->
+<section id="sc04">
+  <div class="sec-head"><span class="sec-no">SC-04</span><h2>상황별 표현</h2></div>
+  <p class="sec-lede">빈 입력창 앞에서 막히는 사용자를 위한 진입점. 카드는 예문 상세 화면으로 가지 않고 곧장 SC-02를 채운다.</p>
+
+  <div class="screen">
+    <div class="screen-bar"><span class="sid">SC-04</span><span class="nm">상황별 표현</span><span class="rt">진입: SC-01 · 이탈: SC-02(자동 입력)</span></div>
+    <div class="screen-body split">
+      <div class="mock-wrap">
+        <div class="mock">
+          <div class="mock-top"><span class="back">← 뒤로</span><span class="brand" style="margin-left:auto">OfficeTone</span></div>
+          <div class="stack g16">
+            <div class="pinned">
+              <span class="pin tl">1</span>
+              <div class="m-h1" style="font-size:19px">이런 상황에는<br>어떻게 말하지?</div>
+            </div>
+            <div class="sit-grid pinned">
+              <span class="pin tr">2</span>
+              <div class="sit"><div class="ico">📄</div><div class="nm">자료 요청</div><div class="de">아직 안 온 자료를 다시 요청할 때</div></div>
+              <div class="sit"><div class="ico">⏰</div><div class="nm">답장 리마인드</div><div class="de">회신이 없어 다시 확인할 때</div></div>
+              <div class="sit"><div class="ico">🙏</div><div class="nm">부탁 거절</div><div class="de">맡기 어려운 일을 거절할 때</div></div>
+              <div class="sit"><div class="ico">💬</div><div class="nm">실수 사과</div><div class="de">업무 실수를 알리고 사과할 때</div></div>
+              <div class="sit" style="grid-column:span 2"><div class="ico">📈</div><div class="nm">상사에게 의견 전달</div><div class="de">일정·방향에 대한 의견을 조심스럽게 전할 때</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="notes">
+        <h4>영역 정의</h4>
+        <div class="tw" style="border:0">
+          <table style="min-width:0">
+            <tbody>
+              <tr><td class="id">1</td><td>화면 제목 &ldquo;이런 상황에는 어떻게 말하지?&rdquo; — 기획 확정 문구로 변경하지 않는다.</td></tr>
+              <tr><td class="id">2</td><td><span class="tag">C-CARD</span> 상황 카드 5종. 아이콘 + 상황명 + 한 줄 설명. 모든 카드의 크기·간격을 동일하게 유지하고 카드별 색을 다르게 쓰지 않는다.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h4>전환 규칙</h4>
+        <ul class="plain">
+          <li>카드 선택 → <b>SC-02로 이동</b>. 예문 상세 화면을 새로 열지 않는다.</li>
+          <li>선택한 카드의 예문이 원문 입력창에 채워지고, 상대방·톤앤매너·채널이 기본값으로 선택된 상태가 된다.</li>
+          <li>자동 입력된 값은 모두 사용자가 SC-02에서 수정할 수 있다.</li>
+          <li>카드 레이아웃: 2열(모바일 1열). 5번째 카드는 2열을 가로로 채운다.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 ============ -->
+<section id="preset">
+  <div class="sec-head"><span class="sec-no">03</span><h2>상황 카드 → 입력 화면 매핑</h2></div>
+  <p class="sec-lede">SC-04에서 SC-02로 넘길 때 주입되는 값. 기획 확정값이며 임의로 바꾸지 않는다.</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th style="width:62px">ID</th><th style="width:120px">상황 카드</th><th style="width:34%">자동 입력 예문</th><th style="width:82px">상대방</th><th style="width:90px">톤앤매너</th><th style="width:80px">채널</th></tr></thead>
+      <tbody>
+        <tr><td class="id">P-00</td><td class="k">기본 예시<br><span class="tag">SC-01 기본값</span></td><td>대한은행 담당자님 안녕하세요! 김삼일 회계사입니다. 보냈던 민국테크의 금융조회서를 20일까지 회신받아야 해서 연락드려요. …</td><td>외부 고객</td><td>격식 있게</td><td>이메일</td></tr>
+        <tr><td class="id">P-01</td><td class="k">자료 요청</td><td>어제 말한 정리 자료 아직이에요? 오늘 안에 주세요.</td><td>후배</td><td>기본</td><td>메신저</td></tr>
+        <tr><td class="id">P-02</td><td class="k">답장 리마인드</td><td>저번에 보낸 메일 확인하셨어요? 답이 없으셔서요.</td><td>외부 고객</td><td>격식 있게</td><td>이메일</td></tr>
+        <tr><td class="id">P-03</td><td class="k">부탁 거절</td><td>이번 주는 일이 너무 많아서 그거 못 할 것 같아요.</td><td>동료</td><td>부드럽게</td><td>메신저</td></tr>
+        <tr><td class="id">P-04</td><td class="k">실수 사과</td><td>아까 보낸 파일 잘못 보냈어요. 다시 보낼게요.</td><td>상사</td><td>격식 있게</td><td>메신저</td></tr>
+        <tr><td class="id">P-05</td><td class="k">상사에게 의견 전달</td><td>이 일정은 너무 빡빡해서 현실적으로 힘들 것 같아요.</td><td>상사</td><td>부드럽게</td><td>이메일</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ 04 ============ -->
+<section id="data">
+  <div class="sec-head"><span class="sec-no">04</span><h2>데이터 · 상태 모델</h2></div>
+  <p class="sec-lede">전역 상태는 하나의 객체로 충분하다. 화면 전환은 <code>screen</code> 값만 바꾸고 입력값은 유지한다.</p>
+
+  <h3>앱 상태</h3>
+  <pre><span class="c">// 세션 메모리에만 존재. 저장·동기화 없음</span>
+{
+  <span class="k">screen</span>:  <span class="s">'home' | 'input' | 'result' | 'situations'</span>,
+  <span class="k">text</span>:    <span class="s">string</span>,   <span class="c">// 원문, 최대 300자</span>
+  <span class="k">target</span>:  <span class="s">'상사' | '동료' | '후배' | '외부 고객'</span>,
+  <span class="k">tone</span>:    <span class="s">'부드럽게' | '기본' | '격식 있게'</span>,
+  <span class="k">channel</span>: <span class="s">'메신저' | '이메일'</span>,
+  <span class="k">copied</span>:  <span class="s">boolean</span>    <span class="c">// 복사 피드백 1.5초 플래그</span>
+}</pre>
+
+  <h3>변환 결과</h3>
+  <pre>{
+  <span class="k">result</span>: {
+    <span class="k">pre</span>: <span class="s">string</span>,   <span class="c">// 강조 앞 문장</span>
+    <span class="k">em</span>:  <span class="s">string</span>,   <span class="c">// 핵심 표현 1곳 — SC-03에서 굵기·색 강조</span>
+    <span class="k">post</span>:<span class="s">string</span>    <span class="c">// 강조 뒤 문장</span>
+  },
+  <span class="k">changes</span>: [
+    [<span class="s">'재촉하는 질문'</span>, <span class="s">'진행 상황 확인 표현으로 변경'</span>],  <span class="c">// A → B 형식</span>
+    <span class="s">'지시형 문장을 부드러운 요청으로 변경'</span>,              <span class="c">// 단문 형식</span>
+    <span class="s">'핵심 내용(자료·오늘까지)은 그대로 유지'</span>             <span class="c">// 마지막 줄은 항상 유지 항목</span>
+  ]
+}</pre>
+
+  <h3>화면 전환 시 상태 처리</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th style="width:170px">전환</th><th style="width:150px">트리거</th><th>상태 처리</th></tr></thead>
+      <tbody>
+        <tr><td class="k">SC-01 → SC-02</td><td>문장 바꾸러 가기</td><td><code>text</code>를 비우고 옵션은 기본값으로 초기화한다.</td></tr>
+        <tr><td class="k">SC-01 → SC-04</td><td>상황별 표현 보기</td><td>상태 변경 없음.</td></tr>
+        <tr><td class="k">SC-04 → SC-02</td><td>상황 카드 선택</td><td>선택 카드의 <span class="tag">P-0n</span> 프리셋으로 <code>text·target·tone·channel</code>을 한 번에 덮어쓴다.</td></tr>
+        <tr><td class="k">SC-02 → SC-03</td><td>회사 말투로 바꾸기</td><td>입력값 유지. 매칭되는 프리셋이 없으면 결과 없음 상태로 진입한다.</td></tr>
+        <tr><td class="k">SC-03 → SC-02</td><td>문장 수정하기</td><td>입력값·옵션을 그대로 유지한 채 화면만 되돌린다. <span class="tag warn">초기화 금지</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ 05 ============ -->
+<section id="rules">
+  <div class="sec-head"><span class="sec-no">05</span><h2>제약 사항</h2></div>
+  <p class="sec-lede">구현·개선 과정에서 흔들리기 쉬운 지점을 못 박는다. 왼쪽은 유지, 오른쪽은 조정 가능.</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th style="width:50%"><span class="tag keep">반드시 유지</span></th><th><span class="tag">조정 가능</span></th></tr></thead>
+      <tbody>
+        <tr>
+          <td>4개 화면 구조와 사용자 흐름</td>
+          <td>여백, 요소 간격, 카드·버튼 크기</td>
+        </tr>
+        <tr>
+          <td>상대방 / 톤앤매너 / 전달 채널 3그룹 선택 구조</td>
+          <td>선택 상태의 표시 방식(테두리·배경·굵기 조합)</td>
+        </tr>
+        <tr>
+          <td>기존 문장 → 변환 결과 비교 흐름과 &ldquo;이렇게 바뀌었어요&rdquo; 영역</td>
+          <td>전후 문장의 시각적 구분 방식, 변화 설명의 가독성</td>
+        </tr>
+        <tr>
+          <td>상황 카드 선택 → SC-02 이동 → 예문·옵션 자동 입력</td>
+          <td>카드 그리드 열 수, 아이콘 표현, hover 인터랙션</td>
+        </tr>
+        <tr>
+          <td>파란색 중심 디자인 방향과 확정 문구</td>
+          <td>글자 크기·굵기, 정보 위계, 모바일 대응</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>하지 않는 것</h3>
+  <ul class="plain">
+    <li>화면·기능 임의 추가, 확정 기능 삭제</li>
+    <li>상황 카드별 상세 화면이나 예문 전용 페이지 추가</li>
+    <li>DeepL식 밑줄 교정 표시를 그대로 적용하는 것 — 변화는 설명 영역으로 전달한다</li>
+    <li>레퍼런스 서비스의 전체 레이아웃·브랜드 컬러 복제</li>
+    <li>과도한 그라데이션·그림자·장식, 화려한 애니메이션</li>
+    <li>한 화면에 설명문을 여러 블록으로 나눠 붙이는 것</li>
+  </ul>
+</section>
+
+<div class="foot">OfficeTone 화면설계서 v1.0 · 기준 문서: 아이디어_장하영.docx.pdf, DESIGN_SYSTEM.md · 충돌 시 기획서 우선</div>
+
+</main>
+</div>
