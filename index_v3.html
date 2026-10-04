@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>OfficeTone – 하고 싶은 말을, 회사에서 할 수 있는 말로</title>
+<meta name="description" content="상대방과 상황만 고르면, 원래 뜻은 그대로 두고 업무에 맞는 표현으로 바꿔 드려요.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap">
+<style>
+/* 원본 프로토타입 v2의 색상을 그대로 토큰으로 옮김 */
+:root {
+  --bg: #F7F9FC;
+  --surface: #FFFFFF;
+  --border: #E6EAF0;
+  --text: #111827;
+  --text-body: #374151;
+  --text-sub: #4B5563;
+  --text-muted: #9AA3AF;
+  --primary: #1764E8;
+  --primary-hover: #0F55CF;
+  --primary-text-hover: #0E4DB8;
+  --bubble-in-bg: #EEF1F5;
+  --bubble-out-bg: #E8F0FE;
+  --bubble-out-border: #CFE0FC;
+  --bubble-out-text: #0F3E91;
+  --card-shadow: 0 2px 10px rgba(17, 24, 39, 0.04);
+  --toast-bg: #1F2633;
+  --toast-text: #FFFFFF;
+  --label: #374151;
+  --input-border: #D5DBE4;
+  --divider: #EEF1F5;
+  --chip-on-bg: #EAF2FE;
+  --chip-off-dot: #B8C0CC;
+  --disabled-bg: #C9D3E1;
+  --focus-ring: rgba(23, 100, 232, 0.15);
+  --orig-bg: #F1F4F8;
+  --orig-border: #E3E8EF;
+  --orig-label: #5B6472;
+  --conv-bg: #EEF4FE;
+  --conv-border: #B9D1FA;
+  --em: #1459CF;
+  --sec-hover-border: #9AA3AF;
+  --sec-hover-bg: #F9FAFB;
+  --chev: #9AA3AF;
+  --card-hover-border: #8FB3F0;
+  --card-hover-shadow: 0 4px 14px rgba(23, 100, 232, 0.08);
+  --tint-blue-bg: #E8F0FE;   --tint-blue: #1764E8;
+  --tint-green-bg: #E3F5EC;  --tint-green: #1F8A55;
+  --tint-pink-bg: #FDE8EC;   --tint-pink: #D23A5A;
+  --tint-purple-bg: #EFEAFB; --tint-purple: #6B46C1;
+  --tint-yellow-bg: #FFF4D6; --tint-yellow: #B7791F;
+  --font: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0F141C; --surface: #171D27; --border: #2A3342;
+    --text: #EEF1F6; --text-body: #D3D9E2; --text-sub: #B3BCC9; --text-muted: #7F8A99;
+    --primary: #4D8DF7; --primary-hover: #6A9FF8; --primary-text-hover: #7FAEF9;
+    --bubble-in-bg: #222A36; --bubble-out-bg: #1A2A45; --bubble-out-border: #2D4A7A; --bubble-out-text: #CFE0FC;
+    --card-shadow: none; --toast-bg: #EEF1F6; --toast-text: #121826; --label: #C9D1DC; --input-border: #3A4556; --divider: #242C38; --chip-on-bg: #1A2A45; --chip-off-dot: #5A6576; --disabled-bg: #2E3846; --focus-ring: rgba(77, 141, 247, 0.25); --orig-bg: #1D2430; --orig-border: #2A3342; --orig-label: #A7B1BF; --conv-bg: #172338; --conv-border: #2D4A7A; --em: #7FAEF9; --sec-hover-border: #5A6576; --sec-hover-bg: #1D2430; --chev: #6B7686; --card-hover-border: #3C6CC0; --card-hover-shadow: none; --tint-blue-bg: #1E2C47; --tint-blue: #7AA7F7; --tint-green-bg: #183428; --tint-green: #6BCB92; --tint-pink-bg: #3A1E26; --tint-pink: #F07C95; --tint-purple-bg: #2A2342; --tint-purple: #A88BEA; --tint-yellow-bg: #3A3018; --tint-yellow: #F0C04D;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0F141C; --surface: #171D27; --border: #2A3342;
+  --text: #EEF1F6; --text-body: #D3D9E2; --text-sub: #B3BCC9; --text-muted: #7F8A99;
+  --primary: #4D8DF7; --primary-hover: #6A9FF8; --primary-text-hover: #7FAEF9;
+  --bubble-in-bg: #222A36; --bubble-out-bg: #1A2A45; --bubble-out-border: #2D4A7A; --bubble-out-text: #CFE0FC;
+  --card-shadow: none; --toast-bg: #EEF1F6; --toast-text: #121826; --label: #C9D1DC; --input-border: #3A4556; --divider: #242C38; --chip-on-bg: #1A2A45; --chip-off-dot: #5A6576; --disabled-bg: #2E3846; --focus-ring: rgba(77, 141, 247, 0.25); --orig-bg: #1D2430; --orig-border: #2A3342; --orig-label: #A7B1BF; --conv-bg: #172338; --conv-border: #2D4A7A; --em: #7FAEF9; --sec-hover-border: #5A6576; --sec-hover-bg: #1D2430; --chev: #6B7686; --card-hover-border: #3C6CC0; --card-hover-shadow: none; --tint-blue-bg: #1E2C47; --tint-blue: #7AA7F7; --tint-green-bg: #183428; --tint-green: #6BCB92; --tint-pink-bg: #3A1E26; --tint-pink: #F07C95; --tint-purple-bg: #2A2342; --tint-purple: #A88BEA; --tint-yellow-bg: #3A3018; --tint-yellow: #F0C04D;
+}
+html { height: 100%; scroll-padding-top: env(safe-area-inset-top, 0px); }
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0; min-height: 100%;
+  display: flex; flex-direction: column;
+  background: var(--bg); color: var(--text);
+  font-family: var(--font);
+  word-break: keep-all;
+}
+button { font-family: inherit; cursor: pointer; }
+button:focus-visible { outline: 3px solid rgba(23, 100, 232, 0.35); outline-offset: 2px; }
+
+/* 헤더 */
+.header { background: var(--surface); border-bottom: 1px solid var(--border); }
+.header-inner { max-width: 1120px; margin: 0 auto; padding: 14px 32px; }
+.logo { border: none; background: none; padding: 4px 0; font-size: 21px; font-weight: 800; letter-spacing: -0.02em; color: var(--text); }
+.logo span { color: var(--primary); }
+
+/* 화면 1. 홈 */
+main { flex-grow: 1; }
+main[hidden] { display: none !important; }
+.main-home { display: flex; align-items: center; }
+.home {
+  width: 100%; max-width: 1120px; margin: 0 auto; padding: 72px 32px;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 64px;
+}
+.home-copy { flex: 1 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 36px; }
+.home-text { display: flex; flex-direction: column; gap: 20px; }
+.home h1 { margin: 0; font-size: clamp(1.75rem, 4.4vw, 3.25rem); line-height: 1.3; font-weight: 800; letter-spacing: -0.03em; }
+.home h1 .accent { color: var(--primary); white-space: nowrap; }
+.home-desc { margin: 0; font-size: 1.125rem; line-height: 1.7; color: var(--text-sub); }
+.home-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+.cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  height: 56px; padding: 0 30px;
+  border: none; border-radius: 12px;
+  background: var(--primary); color: #FFFFFF;
+  font-size: 1.0625rem; font-weight: 700;
+}
+.cta:hover { background: var(--primary-hover); }
+.sub {
+  display: inline-flex; align-items: center; gap: 4px;
+  min-height: 44px; padding: 0;
+  border: none; background: none;
+  font-size: 1rem; font-weight: 500; color: var(--primary);
+}
+.sub:hover { color: var(--primary-text-hover); }
+
+.home-visual { flex: 1 1 340px; min-width: 0; display: flex; justify-content: center; }
+/* 홈 예시: 초기 기획 그래픽(반짝임 표시 + 휜 화살표 + 꼬리 달린 말풍선) 느낌을 살린 순환 애니메이션 */
+.demo-card {
+  width: 100%; max-width: 440px; padding: 40px 36px 22px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
+  box-shadow: var(--card-shadow);
+  display: flex; flex-direction: column; gap: 20px;
+}
+.demo-stack { display: grid; }
+.demo-slide {
+  grid-area: 1 / 1; display: flex; flex-direction: column; justify-content: center;   /* 짧은 예시도 카드 가운데에 오도록 */
+  opacity: 0; visibility: hidden;
+  transition: opacity .35s ease, visibility .35s;
+}
+.demo-slide.is-active { opacity: 1; visibility: visible; }
+.bubble-in {
+  position: relative; align-self: flex-end; margin-right: 6%; max-width: 78%;
+  padding: 14px 20px; border-radius: 18px;
+  background: var(--bubble-in-bg); color: var(--text-body);
+  font-size: 0.9375rem; line-height: 1.6;
+}
+.demo-arrow { align-self: flex-start; margin: 4px 0 6px 40%; width: 52px; height: 72px; color: var(--text-muted); }
+.demo-arrow svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.bubble-out {
+  position: relative; align-self: flex-start; max-width: 92%;
+  padding: 18px 22px; border-radius: 18px;
+  background: var(--bubble-out-bg); color: var(--bubble-out-text);
+  font-size: 0.9375rem; font-weight: 500; line-height: 1.6;
+}
+/* 왼쪽 아래 말풍선 꼬리 */
+.bubble-out::after { content: ''; position: absolute; left: 22px; bottom: -11px; width: 18px; height: 12px; background: var(--bubble-out-bg); clip-path: polygon(0 0, 100% 0, 15% 100%); }
+/* 말풍선 오른쪽 위 반짝임 표시 */
+.spark { position: absolute; width: 22px; height: 22px; overflow: visible; transform-origin: 0% 100%; }
+.spark path { fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; }
+.bubble-in .spark { top: -24px; right: -6px; color: var(--text-muted); }
+.bubble-out .spark { top: -18px; right: -24px; color: var(--primary); }
+
+/* 순서: 원문 말풍선 → 반짝임 → 화살표가 그려짐 → 변환 말풍선이 톡 → 파란 반짝임 */
+.demo-slide.is-active .bubble-in { animation: bubbleIn .45s var(--ease-soft) both; }
+.demo-slide.is-active .bubble-in .spark { animation: sparkPop .4s cubic-bezier(0.34, 1.56, 0.64, 1) .3s both; }
+.demo-slide.is-active .arrow-line { stroke-dasharray: 90; animation: drawLine .5s ease-out .4s both; }
+.demo-slide.is-active .arrow-head { animation: fadeIn .2s ease .85s both; }
+.demo-slide.is-active .bubble-out { animation: bubblePop .5s cubic-bezier(0.34, 1.4, 0.64, 1) .9s both; }
+.demo-slide.is-active .bubble-out .spark { animation: sparkPop .4s cubic-bezier(0.34, 1.56, 0.64, 1) 1.25s both; }
+@keyframes bubbleIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes bubblePop { from { opacity: 0; transform: translateY(10px) scale(0.96); } to { opacity: 1; transform: none; } }
+@keyframes sparkPop { from { opacity: 0; transform: scale(0.3); } to { opacity: 1; transform: scale(1); } }
+@keyframes drawLine { from { stroke-dashoffset: 90; } to { stroke-dashoffset: 0; } }
+
+.demo-dots { display: flex; justify-content: center; gap: 6px; margin-top: 8px; }
+.demo-dots i { width: 6px; height: 6px; border-radius: 999px; background: var(--border); transition: width .3s, background-color .3s; }
+.demo-dots i.on { width: 18px; background: var(--primary); }
+
+
+/* 화면 2. 문장 입력 및 옵션 선택 */
+.input-page { max-width: 800px; margin: 0 auto; padding: 56px 32px 72px; display: flex; flex-direction: column; gap: 28px; }
+.page-title { margin: 0; font-size: clamp(1.75rem, 3.2vw, 2.25rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.3; }
+.field { display: flex; flex-direction: column; gap: 10px; }
+.field label { font-size: 0.9375rem; font-weight: 700; color: var(--label); }
+.source {
+  width: 100%; min-height: 160px; padding: 18px 20px;
+  border: 1px solid var(--input-border); border-radius: 14px;
+  background: var(--surface); color: var(--text);
+  font-family: inherit; font-size: 1.0625rem; line-height: 1.7; resize: vertical;
+}
+.source::placeholder { color: var(--text-muted); }
+.source:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px var(--focus-ring); }
+.options { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 8px 24px; display: flex; flex-direction: column; }
+.opt-group { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; padding: 18px 0; }
+.opt-group + .opt-group { border-top: 1px solid var(--divider); }
+.opt-label { flex: 0 0 96px; font-size: 0.9375rem; font-weight: 700; color: var(--label); }
+.chips { flex: 1 1 320px; display: flex; flex-wrap: wrap; gap: 10px; }
+.chip {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-width: 104px; height: 44px; padding: 0 18px;
+  border-radius: 999px; border: 1.5px solid var(--input-border);
+  background: var(--surface); color: var(--text-sub);
+  font-size: 0.9375rem; font-weight: 500;
+  transition: border-color .12s, background-color .12s;
+}
+.chip:hover { border-color: #8FB3F0; }
+.chip .radio { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid var(--chip-off-dot); background: var(--surface); flex-shrink: 0; }
+.chip[aria-checked="true"] { border-color: var(--primary); background: var(--chip-on-bg); color: var(--primary); font-weight: 700; }
+.chip[aria-checked="true"] .radio { border: 4.5px solid var(--primary); background: #FFFFFF; }
+.cta-block {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; height: 58px; border: none; border-radius: 14px;
+  background: var(--primary); color: #FFFFFF;
+  font-size: 1.0625rem; font-weight: 700;
+}
+.cta-block:hover:not(:disabled) { background: var(--primary-hover); }
+.cta-block:disabled { background: var(--disabled-bg); cursor: not-allowed; }
+
+
+/* 화면 3. 변환 완료 */
+.result-page { max-width: 800px; margin: 0 auto; padding: 56px 32px 72px; display: flex; flex-direction: column; gap: 24px; }
+.compare { display: flex; flex-direction: column; align-items: stretch; gap: 10px; }
+.box-orig { padding: 20px 24px; border-radius: 14px; background: var(--orig-bg); border: 1px solid var(--orig-border); display: flex; flex-direction: column; gap: 8px; }
+.box-orig .box-label { font-size: 0.8125rem; font-weight: 700; color: var(--orig-label); }
+.box-orig p { margin: 0; font-size: 1.0625rem; line-height: 1.7; color: var(--text-body); white-space: pre-line; }
+.compare-arrow { align-self: center; color: var(--text-muted); display: flex; }
+.box-conv { padding: 24px 26px; border-radius: 14px; background: var(--conv-bg); border: 1.5px solid var(--conv-border); display: flex; flex-direction: column; gap: 10px; }
+.box-conv .box-label { font-size: 0.8125rem; font-weight: 700; color: var(--primary); }
+.box-conv .conv-text { margin: 0; font-size: 1.1875rem; font-weight: 500; line-height: 1.8; color: var(--text); white-space: pre-line; }
+.box-conv .conv-text strong { font-weight: 800; color: var(--em); }
+.box-conv .conv-text .chg { font-weight: 600; color: var(--em); }
+.rule-note { margin: 2px 4px 0; font-size: 0.8125rem; line-height: 1.6; color: var(--text-muted); }
+.rule-note[hidden] { display: none; }
+.box-conv .no-result { margin: 0; font-size: 1rem; line-height: 1.7; color: var(--text-sub); }
+.changes { padding: 22px 24px; border-radius: 14px; background: var(--surface); border: 1px solid var(--border); display: flex; flex-direction: column; gap: 14px; }
+.changes[hidden] { display: none; }
+.changes h2 { margin: 0; font-size: 0.9375rem; font-weight: 700; color: var(--text); }
+.changes ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.changes li { display: grid; grid-template-columns: 6px 1fr; align-items: start; gap: 10px; font-size: 0.9375rem; line-height: 1.6; color: var(--text-body); }
+.changes .dot { width: 6px; height: 6px; margin-top: 9px; border-radius: 50%; background: var(--primary); }
+.changes .chg-arrow { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; }
+.changes .chg-arrow svg { flex-shrink: 0; }
+.changes .to { font-weight: 700; color: var(--em); }
+.changes li.is-muted { color: var(--text-muted); }
+.changes li.is-muted .dot { background: var(--text-muted); }
+.result-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn-copy, .btn-edit {
+  flex: 1 1 220px; display: flex; align-items: center; justify-content: center; gap: 8px;
+  height: 56px; border-radius: 14px; font-size: 1.0625rem; font-weight: 700;
+}
+.btn-copy { border: none; background: var(--primary); color: #FFFFFF; }
+.btn-copy:hover { background: var(--primary-hover); }
+.btn-edit { border: 1px solid var(--input-border); background: var(--surface); color: var(--text-body); }
+.btn-edit:hover { border-color: var(--sec-hover-border); background: var(--sec-hover-bg); }
+
+
+/* 화면 4. 상황별 표현 */
+.situations-page { max-width: 960px; margin: 0 auto; padding: 56px 32px 72px; display: flex; flex-direction: column; gap: 32px; }
+.sit-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 16px; }
+.sit-card {
+  display: flex; align-items: center; gap: 16px;
+  min-height: 92px; padding: 20px 20px 20px 22px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+  text-align: left; color: var(--text);
+  transition: border-color .12s, box-shadow .12s;
+}
+.sit-card:hover { border-color: var(--card-hover-border); box-shadow: var(--card-hover-shadow); }
+.sit-card:hover .chev { color: var(--primary); }
+.sit-icon { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.sit-name { flex-grow: 1; font-size: 1.0625rem; font-weight: 700; }
+.sit-card .chev { color: var(--chev); flex-shrink: 0; }
+
+
+/* 화면 4-1. 상황 가이드 (카드를 눌렀을 때) */
+.guide-page { max-width: 800px; margin: 0 auto; padding: 40px 32px 72px; display: flex; flex-direction: column; gap: 24px; }
+.back-link { align-self: flex-start; display: inline-flex; align-items: center; gap: 4px; min-height: 40px; padding: 0; border: none; background: none; color: var(--text-sub); font-size: 0.9375rem; font-weight: 500; }
+.back-link:hover { color: var(--primary); }
+.guide-head { display: flex; align-items: center; gap: 16px; }
+.guide-head .sit-icon { width: 56px; height: 56px; }
+.guide-head .sit-icon svg { width: 26px; height: 26px; }
+.guide-head h1 { margin: 0; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.3; }
+.guide-head p { margin: 4px 0 0; font-size: 1rem; color: var(--text-sub); line-height: 1.6; }
+.guide-options { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 4px 24px; display: flex; flex-direction: column; }
+.guide-options .opt-group { padding: 14px 0; }
+.guide-options .chip { height: 40px; min-width: 88px; padding: 0 16px; font-size: 0.875rem; }
+.say-box { padding: 24px 26px; border-radius: 16px; background: var(--conv-bg); border: 1.5px solid var(--conv-border); display: flex; flex-direction: column; gap: 14px; }
+.say-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.say-label { font-size: 0.875rem; font-weight: 700; color: var(--primary); }
+.say-copy { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--conv-border); background: var(--surface); color: var(--primary); font-size: 0.875rem; font-weight: 700; flex-shrink: 0; }
+.say-copy:hover { border-color: var(--primary); }
+.say-text { margin: 0; font-size: 1.1875rem; font-weight: 500; line-height: 1.8; color: var(--text); white-space: pre-line; }
+.say-text strong { font-weight: 800; color: var(--em); }
+.say-text .chg { font-weight: 600; color: var(--em); }
+.guide-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.guide-card { padding: 20px 22px; border-radius: 14px; background: var(--surface); border: 1px solid var(--border); display: flex; flex-direction: column; gap: 12px; }
+.guide-card h2 { margin: 0; font-size: 0.9375rem; font-weight: 700; color: var(--text); }
+.steps { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; counter-reset: step; }
+.steps li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.9375rem; line-height: 1.6; color: var(--text-body); counter-increment: step; }
+.steps li::before { content: counter(step); flex-shrink: 0; width: 22px; height: 22px; margin-top: 1px; border-radius: 50%; background: var(--chip-on-bg); color: var(--primary); font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.avoid-quote { margin: 0; padding: 12px 14px; border-radius: 10px; background: var(--orig-bg); color: var(--text-sub); font-size: 0.9375rem; line-height: 1.6; text-decoration: line-through; text-decoration-color: var(--text-muted); }
+.avoid-why { margin: 0; font-size: 0.875rem; line-height: 1.6; color: var(--text-sub); }
+.guide-cta { display: flex; flex-direction: column; gap: 8px; }
+.guide-cta p { margin: 0; text-align: center; font-size: 0.875rem; color: var(--text-muted); }
+.br-mobile { display: none; }
+
+
+/* 변환 순간 연출 */
+.cta-block .spinner { width: 18px; height: 18px; margin-right: 10px; border: 2.5px solid rgba(255, 255, 255, 0.4); border-top-color: #FFFFFF; border-radius: 50%; animation: spin .7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.cta-block.is-loading:disabled { background: var(--primary); cursor: default; }
+/* 결과 화면: 변환된 문장 박스가 아래에서 올라오고, 바뀐 부분이 뒤이어 파란색으로 물듦
+   - 끝으로 갈수록 천천히 멈추는 곡선(ease-out)을 써서 부드럽게 안착
+   - 단계가 조금씩 겹치게 해 끊김 없이 이어지도록 함 */
+:root { --ease-soft: cubic-bezier(0.22, 1, 0.36, 1); }
+.box-conv.reveal { animation: convIn .7s var(--ease-soft) .1s both; }
+.box-conv.reveal .chg, .box-conv.reveal strong { animation: inkIn .8s ease-in-out .6s both; }
+.rule-note.reveal { animation: fadeIn .5s ease .9s both; }
+.changes.reveal { animation: riseIn .6s var(--ease-soft) 1.1s both; }
+@keyframes convIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes riseIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes inkIn { from { color: var(--text); } to { color: var(--em); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+
+/* 버튼을 누르는 순간 살짝 눌리는 느낌 */
+.cta, .cta-block { transition: background-color .15s, transform .1s ease; }
+.cta:active, .cta-block:not(:disabled):active { transform: scale(0.98); }
+/* 화면 진입 연출 (모든 화면 공통)
+   - 화면 안의 요소가 위에서부터 0.07초 간격으로 아래에서 살며시 떠오름
+   - 미리 선택된 옵션의 점은 순서대로 톡 채워져 '기본값이 골라져 있다'는 걸 알려 줌 */
+.home.intro > *,
+.input-page.intro > *,
+.guide-page.intro > *,
+.situations-page.intro > .page-title,
+.situations-page.intro .sit-card,
+.result-page.intro > .page-title,
+.result-page.intro .box-orig,
+.result-page.intro .result-actions { animation: riseIn .55s var(--ease-soft) both; }
+.home.intro > :nth-child(2),
+.input-page.intro > :nth-child(2),
+.guide-page.intro > :nth-child(2) { animation-delay: .07s; }
+.input-page.intro > :nth-child(3),
+.guide-page.intro > :nth-child(3) { animation-delay: .14s; }
+.input-page.intro > :nth-child(4),
+.guide-page.intro > :nth-child(4) { animation-delay: .21s; }
+.guide-page.intro > :nth-child(5) { animation-delay: .28s; }
+.guide-page.intro > :nth-child(6) { animation-delay: .35s; }
+/* 상황 카드는 한 장씩 차례로 */
+.situations-page.intro .sit-card:nth-child(1) { animation-delay: .07s; }
+.situations-page.intro .sit-card:nth-child(2) { animation-delay: .12s; }
+.situations-page.intro .sit-card:nth-child(3) { animation-delay: .17s; }
+.situations-page.intro .sit-card:nth-child(4) { animation-delay: .22s; }
+.situations-page.intro .sit-card:nth-child(5) { animation-delay: .27s; }
+/* 결과 화면: 제목·기존 문장이 먼저, 버튼은 변환 문장 연출이 끝날 즈음 */
+.result-page.intro .box-orig { animation-delay: .03s; }
+.result-page.intro .compare-arrow { animation: fadeIn .4s ease .08s both; }
+.result-page.intro .result-actions { animation-delay: 1.25s; }
+/* 옵션 점 채우기 (화면 2, 상황 가이드) */
+.input-page.intro .chip[aria-checked="true"] .radio,
+.guide-page.intro .chip[aria-checked="true"] .radio { animation: dotPop .4s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+.input-page.intro .opt-group:nth-child(1) .chip[aria-checked="true"] .radio { animation-delay: .45s; }
+.input-page.intro .opt-group:nth-child(2) .chip[aria-checked="true"] .radio { animation-delay: .55s; }
+.input-page.intro .opt-group:nth-child(3) .chip[aria-checked="true"] .radio { animation-delay: .65s; }
+.guide-page.intro .opt-group:nth-child(1) .chip[aria-checked="true"] .radio { animation-delay: .5s; }
+.guide-page.intro .opt-group:nth-child(2) .chip[aria-checked="true"] .radio { animation-delay: .6s; }
+.guide-page.intro .opt-group:nth-child(3) .chip[aria-checked="true"] .radio { animation-delay: .7s; }
+@keyframes dotPop { from { transform: scale(0.3); opacity: 0.3; } to { transform: scale(1); opacity: 1; } }
+
+
+/* 상황 가이드: 옵션을 바꾸면 추천 문장이 살짝 사라졌다가 새 문장으로 떠오르고, 바뀐 부분이 다시 파랗게 물듦 */
+.say-text { transition: opacity .15s ease, transform .15s ease; }
+.say-text.swap-out { opacity: 0; transform: translateY(-4px); }
+.say-text.swap-in { animation: riseIn .4s var(--ease-soft) both; }
+.say-text.swap-in .chg, .say-text.swap-in strong { animation: inkIn .6s ease-in-out .15s both; }
+
+
+/* 예시 카드 아래 메시지 입력창 (아이폰 메시지 앱 느낌의 장식) */
+.demo-compose { display: flex; align-items: center; gap: 8px; margin-top: 2px; padding-top: 14px; border-top: 1px solid var(--divider); }
+.compose-plus { width: 30px; height: 30px; border-radius: 50%; background: var(--bubble-in-bg); color: var(--text-muted); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.compose-field { flex: 1; min-width: 0; height: 34px; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 0 4px 0 14px; border: 1px solid var(--input-border); border-radius: 999px; background: var(--surface); }
+.compose-field span { font-size: 0.8125rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.compose-send { width: 26px; height: 26px; border-radius: 50%; background: var(--primary); color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+/* 새 예시가 나올 때 '전송'한 것처럼 보내기 버튼이 톡 눌렸다 돌아옴 */
+.demo-compose.sent .compose-send { animation: sendTap .45s cubic-bezier(0.34, 1.56, 0.64, 1); }
+@keyframes sendTap { 0% { transform: scale(1); } 35% { transform: scale(0.82); } 100% { transform: scale(1); } }
+
+/* 토스트 */
+.toast {
+  position: fixed; left: 50%; bottom: calc(28px + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%) translateY(12px);
+  background: var(--toast-bg); color: var(--toast-text);
+  padding: 12px 20px; border-radius: 999px; font-size: .9375rem; font-weight: 500;
+  opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s;
+  max-width: calc(100% - 32px); text-align: center;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+@media (max-width: 767px) {
+  .header-inner { padding: 12px 20px; }
+  .demo-card { padding: 36px 24px 20px; }
+  /* 홈: 휴대폰에서 여백과 예시 카드를 줄여 덜 빽빽하게 */
+  /* 윗부분(제목·설명·버튼)은 화면 위쪽에 붙이고, 예시 카드와의 간격을 넓힘 */
+  .main-home { align-items: flex-start; }
+  .home { padding: 24px 20px 48px; gap: 56px; }
+  .home-copy { gap: 28px; }
+  .home-text { gap: 14px; }
+  .home-desc { font-size: 1rem; line-height: 1.65; }
+  .home-desc br { display: none; }
+  .home-actions { gap: 8px; }
+  .input-page { padding: 32px 20px 56px; gap: 24px; }
+  .options { padding: 4px 18px; }
+  .source { font-size: 16px; line-height: 1.6; padding: 14px 16px; }
+  .result-page { padding: 32px 20px 56px; gap: 20px; }
+  .situations-page { padding: 32px 20px 56px; gap: 24px; }
+  .sit-grid { gap: 12px; }
+  .sit-card { min-height: 80px; padding: 16px 18px; }
+  .guide-page { padding: 20px 20px 56px; gap: 20px; }
+  .guide-head .sit-icon { width: 48px; height: 48px; }
+  .guide-options { padding: 2px 16px; }
+  .guide-options .opt-group { gap: 8px; padding: 12px 0; }
+  .guide-options .chips { gap: 6px; }
+  .guide-options .chip { min-width: 0; flex: 1 1 auto; padding: 0 12px; }
+  .say-box { padding: 18px 20px; }
+  .say-text { font-size: 18px; line-height: 1.7; }
+  .guide-cols { grid-template-columns: 1fr; gap: 12px; }
+  .br-mobile { display: inline; }
+  .box-orig { padding: 16px 18px; }
+  .box-conv { padding: 18px 20px; }
+  .changes { padding: 18px 20px; }
+  /* 변환된 문장: 휴대폰에서 18px */
+  .box-conv .conv-text { font-size: 18px; line-height: 1.7; }
+  /* 이렇게 바뀌었어요: 바뀌기 전 표현은 첫 줄(작은 회색), 화살표와 바뀐 표현은 둘째 줄 */
+  .changes ul { gap: 14px; }
+  .changes .chg-arrow { flex-wrap: wrap; align-items: flex-start; row-gap: 2px; }
+  .changes .chg-arrow .from { flex-basis: 100%; color: var(--text-sub); font-size: 0.875rem; }
+  .changes .chg-arrow svg { margin-top: 4px; }
+  .changes .chg-arrow .to { flex: 1 1 0; min-width: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .say-text { transition: none; }
+  .say-text.swap-in, .say-text.swap-in .chg, .say-text.swap-in strong { animation: none; }
+  .intro > *, .intro .sit-card, .intro .box-orig, .intro .compare-arrow, .intro .result-actions, .intro .chip .radio { animation: none !important; }
+  .cta:active, .cta-block:active { transform: none; }
+  .box-conv.reveal, .box-conv.reveal .chg, .box-conv.reveal strong, .changes.reveal, .rule-note.reveal { animation: none; }
+  .cta-block .spinner { animation: none; border-top-color: rgba(255, 255, 255, 0.4); }
+  .toast, .demo-slide, .demo-dots i { transition: none; }
+  .demo-compose.sent .compose-send { animation: none; }
+  .demo-slide.is-active .bubble-in, .demo-slide.is-active .bubble-out, .demo-slide.is-active .spark, .demo-slide.is-active .arrow-line, .demo-slide.is-active .arrow-head { animation: none; }
+}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-inner">
+    <button type="button" class="logo" id="logo"><span>Office</span>Tone</button>
+  </div>
+</header>
+
+<!-- 화면 1. 홈 -->
+<main class="main-home" id="view-home">
+  <div class="home" id="homePage">
+    <div class="home-copy">
+      <div class="home-text">
+        <h1>하고 싶은 말을,<br><span class="accent">회사에서 할 수 있는 말로.</span></h1>
+        <p class="home-desc">상대방과 상황만 고르면, 원래 뜻은 그대로 두고 <br>업무에 맞는 표현으로 바꿔 드려요.</p>
+      </div>
+      <div class="home-actions">
+        <button type="button" class="cta" id="startInput">문장 바꾸러 가기
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+        </button>
+        <button type="button" class="sub" id="goSituations">상황별 표현 보기
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="home-visual" aria-hidden="true">
+      <div class="demo-card">
+        <div class="demo-stack" id="demoStack"></div>
+        <div class="demo-dots" id="demoDots"></div>
+        <div class="demo-compose" id="demoCompose" aria-hidden="true">
+          <span class="compose-plus"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+          <span class="compose-field">
+            <span>메시지 입력</span>
+            <span class="compose-send"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- 화면 2. 문장 입력 및 옵션 선택 -->
+<main id="view-input" hidden>
+  <div class="input-page" id="inputPage">
+    <h1 class="page-title">회사 말투로 바꾸기</h1>
+    <div class="field">
+      <label for="source">하고 싶은 말</label>
+      <textarea id="source" class="source" placeholder="바꾸고 싶은 문장을 그대로 적어 주세요."></textarea>
+    </div>
+    <div class="options" id="options"></div>
+    <button type="button" class="cta-block" id="convertBtn">회사 말투로 바꾸기</button>
+  </div>
+</main>
+
+<!-- 화면 3. 변환 완료 -->
+<main id="view-result" hidden>
+  <div class="result-page" id="resultPage">
+    <h1 class="page-title">변환 완료</h1>
+    <div class="compare">
+      <section class="box-orig" aria-label="기존 문장">
+        <div class="box-label">기존 문장</div>
+        <p id="resOriginal"></p>
+      </section>
+      <div class="compare-arrow" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M6 13l6 6 6-6"/></svg>
+      </div>
+      <section class="box-conv" id="resConvBox" aria-label="변환된 문장">
+        <div class="box-label">변환된 문장</div>
+        <p class="conv-text" id="resConverted"></p>
+        <p class="no-result" id="resNone" hidden>문장을 바꾸는 중에 문제가 생겼어요. 문장을 조금 고쳐서 다시 시도해 주세요.</p>
+      </section>
+      <p class="rule-note" id="resRuleNote" hidden>샘플에 없는 문장이라 기본 규칙(국립국어원 『표준 언어 예절』의 직장 언어 예절 등)으로 바꿨어요. 실제 서비스에서는 AI가 문맥까지 살펴 더 자연스럽게 다듬어요.</p>
+    </div>
+    <section class="changes" id="resChanges" aria-label="이렇게 바뀌었어요">
+      <h2>이렇게 바뀌었어요</h2>
+      <ul id="resChangeList"></ul>
+    </section>
+    <div class="result-actions">
+      <button type="button" class="btn-copy" id="copyBtn"></button>
+      <button type="button" class="btn-edit" id="editBtn">문장 수정하기</button>
+    </div>
+  </div>
+</main>
+
+<!-- 화면 4. 상황별 표현 -->
+<main id="view-situations" hidden>
+  <div class="situations-page" id="sitPage">
+    <h1 class="page-title">이런 상황에는 어떻게 말하지?</h1>
+    <div class="sit-grid" id="sitGrid"></div>
+  </div>
+</main>
+
+<!-- 화면 4-1. 상황 가이드 -->
+<main id="view-guide" hidden>
+  <div class="guide-page" id="guidePage">
+    <button type="button" class="back-link" id="guideBack">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+      상황 목록
+    </button>
+    <div class="guide-head">
+      <span class="sit-icon" id="guideIcon"></span>
+      <div>
+        <h1 id="guideTitle"></h1>
+        <p id="guideDesc"></p>
+      </div>
+    </div>
+    <div class="guide-options" id="guideOptions"></div>
+    <section class="say-box" aria-label="이렇게 말해 보세요">
+      <div class="say-top">
+        <span class="say-label">이렇게 말해 보세요</span>
+        <button type="button" class="say-copy" id="guideCopy">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>
+          <span>복사</span>
+        </button>
+      </div>
+      <p class="say-text" id="guideSay"></p>
+    </section>
+    <div class="guide-cols">
+      <section class="guide-card">
+        <h2>이렇게 말하면 좋아요</h2>
+        <ol class="steps" id="guideSteps"></ol>
+      </section>
+      <section class="guide-card">
+        <h2>이런 말은 피해요</h2>
+        <p class="avoid-quote" id="guideAvoid"></p>
+        <p class="avoid-why" id="guideWhy"></p>
+      </section>
+    </div>
+    <div class="guide-cta">
+      <button type="button" class="cta-block" id="guideToInput">내 상황에 맞게 직접 바꿔 보기</button>
+      <p>예시 문장이 입력창에 채워져요.<br class="br-mobile"> 내 상황에 맞게 고쳐 보세요.</p>
+    </div>
+  </div>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ===== 공통 ===== */
+const toastEl = document.getElementById('toast');
+let toastTimer;
+function toast(msg) {
+  toastEl.textContent = msg;
+  toastEl.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2000);
+}
+
+/* ===== 예문 데이터 (원본 v2) ===== */
+const PRESETS = {
+  '기본 예시': {
+    text: '대한은행 담당자님 안녕하세요! 김삼일 회계사입니다.\n보냈던 민국테크의 금융조회서를 20일까지 회신받아야 해서 연락드려요.\n장부 대사가 필요해서 급한 자료라 제게 빠르게 우편으로 회신 부탁드려요.',
+    target: '외부 고객', tone: '격식 있게', channel: '이메일',
+    result: { pre: '대한은행 담당자님, 안녕하십니까.\n김삼일 회계사입니다.\n앞서 송부드린 민국테크의 금융조회서 회신 건으로 연락드립니다.\n장부 대사를 위해 회신 일정이 다소 촉박하여, 번거로우시겠지만 ', em: '20일까지 우편으로 회신해 주시면 감사하겠습니다', post: '.\n바쁘신 중에 협조해 주셔서 진심으로 감사드립니다.' },
+    changes: [['구어체 표현(~요, 느낌표)', '격식 있는 이메일 문체로 변경'], ['"급한 자료라 제게 빠르게"', '촉박한 일정을 정중하게 설명'], '마무리 감사 인사 추가', '핵심 내용(금융조회서·20일·우편 회신)은 그대로 유지']
+  },
+  '자료 요청': {
+    text: '어제 말한 정리 자료 아직이에요? 오늘 안에 주세요.', target: '후배', tone: '기본', channel: '메신저',
+    result: { pre: '어제 이야기한 정리 자료, 진행 상황이 어떤지 궁금해요.\n가능하면 오늘 중으로 ', em: '공유 부탁드려요', post: '!' },
+    changes: [['재촉하는 질문', '진행 상황 확인 표현으로 변경'], '지시형 문장을 부드러운 요청으로 변경', '핵심 내용(자료·오늘까지)은 그대로 유지']
+  },
+  '답장 리마인드': {
+    text: '저번에 보낸 메일 확인하셨어요? 답이 없으셔서요.', target: '외부 고객', tone: '격식 있게', channel: '이메일',
+    result: { pre: '안녕하세요.\n지난번 보내드린 메일 건으로 다시 연락드립니다.\n내용 검토 후 ', em: '회신 주시면 감사하겠습니다', post: '.\n좋은 하루 보내세요.' },
+    changes: [['답이 없다는 지적', '정중한 회신 요청으로 변경'], '인사와 마무리 문장 추가', '핵심 내용(메일 확인·회신 요청)은 그대로 유지']
+  },
+  '부탁 거절': {
+    text: '이번 주는 일이 너무 많아서 그거 못 할 것 같아요.', target: '동료', tone: '부드럽게', channel: '메신저',
+    result: { pre: '말씀해 줘서 고마워요!\n그런데 이번 주는 맡은 일이 많아서 ', em: '제가 맡기는 어려울 것 같아요', post: '.\n도움 드리지 못해 미안해요.' },
+    changes: [['단정적인 거절', '이유를 담은 완곡한 거절로 변경'], '감사와 양해 표현 추가', '핵심 내용(이번 주는 어려움)은 그대로 유지']
+  },
+  '실수 사과': {
+    text: '아까 보낸 파일 잘못 보냈어요. 다시 보낼게요.', target: '상사', tone: '격식 있게', channel: '메신저',
+    result: { pre: '조금 전 보내드린 파일이 잘못 첨부되었습니다.\n', em: '확인이 부족했던 점 죄송합니다', post: '.\n수정한 파일 바로 다시 보내드리겠습니다.' },
+    changes: [['사실만 전달', '정중한 사과 표현 추가'], '격식 있는 종결 어미로 변경', '핵심 내용(파일 재전송)은 그대로 유지']
+  },
+  '상사에게 완료 보고': {
+    text: '시키신 보고서 다 했어요. 첨부했으니까 확인해 보세요.', target: '상사', tone: '격식 있게', channel: '이메일',
+    result: { pre: '안녕하십니까.\n지시하신 보고서 작성을 완료하여 첨부와 같이 보고드립니다.\n', em: '검토해 주시고 수정이 필요한 부분은 말씀해 주시면 반영하겠습니다', post: '.\n감사합니다.' },
+    changes: [['"시키신 ~ 다 했어요"', '"지시하신 ~ 완료하여 보고드립니다"'], ['"확인해 보세요"', '정중한 검토 요청으로 변경'], '인사와 마무리 문장 추가', '핵심 내용(보고서 완료·첨부)은 그대로 유지']
+  }
+};
+
+/* ===== 상태 ===== */
+const state = { screen: 'home', text: '', target: '', tone: '', channel: '' };
+function load(name) {
+  const p = PRESETS[name];
+  Object.assign(state, { text: p.text, target: p.target, tone: p.tone, channel: p.channel });
+}
+load('기본 예시');
+
+/* ===== 화면 전환 ===== */
+const VIEWS = { home: 'view-home', input: 'view-input', result: 'view-result', situations: 'view-situations', guide: 'view-guide' };
+// 화면별 연출 대상
+const PAGES = { home: 'homePage', input: 'inputPage', result: 'resultPage', situations: 'sitPage', guide: 'guidePage' };
+let introTimer;
+function playIntro(screen) {
+  const page = document.getElementById(PAGES[screen]);
+  if (!page) return;
+  Object.values(PAGES).forEach(id => document.getElementById(id).classList.remove('intro'));
+  void page.offsetWidth;                 // 같은 화면이어도 처음부터 다시 재생
+  page.classList.add('intro');
+  clearTimeout(introTimer);
+  introTimer = setTimeout(() => page.classList.remove('intro'), 2000);
+}
+// intro: false 이면 진입 연출 없이 화면만 바꿈 ('문장 수정하기'로 돌아올 때)
+function show(screen, { intro = true } = {}) {
+  state.screen = screen;
+  Object.entries(VIEWS).forEach(([key, id]) => { document.getElementById(id).hidden = key !== screen; });
+  if (screen === 'input') renderInput();
+  if (screen === 'result') renderResult();
+  if (screen === 'guide') renderGuide();
+  if (intro) playIntro(screen);
+  window.scrollTo(0, 0);
+}
+
+/* ===== 주소(#) 기반 화면 전환: 브라우저 뒤로 가기·앞으로 가기 지원 =====
+ * 화면마다 주소 끝이 바뀐다.
+ *   홈 #/   입력 #/input   결과 #/result   상황별 #/situations   상황 가이드 #/guide/상황이름
+ * 버튼을 누르면 go()로 주소를 바꾸고, 주소가 바뀌면 route()가 해당 화면을 보여 준다.
+ */
+const HASH = { home: '#/', input: '#/input', result: '#/result', situations: '#/situations' };
+let nextIntro = null;                       // go()에서 정한 연출 여부 (뒤로 가기일 때는 null)
+function hashOf(screen) {
+  return screen === 'guide' ? '#/guide/' + encodeURIComponent(guide.name) : HASH[screen];
+}
+function go(screen, { intro = true } = {}) {
+  const target = hashOf(screen);
+  if (location.hash === target || (target === '#/' && !location.hash)) {
+    show(screen, { intro });                // 이미 같은 주소면 화면만 다시 그림
+    return;
+  }
+  nextIntro = intro;
+  location.hash = target;
+  // 주소 변경이 막힌 환경(일부 미리보기 등)에서도 화면은 바뀌도록 보완
+  setTimeout(() => { if (state.screen !== screen) { show(screen, { intro }); nextIntro = null; } }, 60);
+}
+function route() {
+  const h = decodeURIComponent(location.hash || '#/');
+  const prev = state.screen;
+  let screen = 'home';
+  if (h.startsWith('#/guide/')) {
+    const name = h.slice('#/guide/'.length);
+    if (PRESETS[name] && GUIDES[name]) {
+      if (guide.name !== name) {            // 주소로 바로 들어오면 그 상황의 기본 옵션으로 시작
+        const p = PRESETS[name];
+        guide.name = name;
+        guide.opts = { target: p.target, tone: p.tone, channel: p.channel };
+      }
+      screen = 'guide';
+    }
+  } else {
+    screen = Object.keys(HASH).find(k => HASH[k] === h) || 'home';
+  }
+  // 결과 화면은 새로고침 후 바로 열면 보여 줄 문장이 없으므로 입력 화면으로
+  if (screen === 'result' && (prev === undefined || !state.text.trim())) screen = 'input';
+  // 연출: 버튼으로 이동하면 go()에서 정한 대로, 뒤로 가기로 결과 → 입력에 돌아오면 연출 없이
+  const intro = nextIntro !== null ? nextIntro : !(screen === 'input' && prev === 'result');
+  nextIntro = null;
+  if (screen === state.screen && prev !== undefined && document.getElementById(VIEWS[screen]).hidden === false && screen !== 'guide') return;
+  show(screen, { intro });
+}
+window.addEventListener('hashchange', route);
+document.getElementById('logo').addEventListener('click', () => go('home'));
+document.getElementById('startInput').addEventListener('click', () => { load('기본 예시'); go('input'); });
+
+/* ===== 화면 2 ===== */
+const GROUPS = [
+  { key: 'target', label: '상대방', options: ['상사', '동료', '후배', '외부 고객'] },
+  { key: 'tone', label: '톤앤매너', options: ['부드럽게', '기본', '격식 있게'] },
+  { key: 'channel', label: '전달 채널', options: ['메신저', '이메일'] }
+];
+const source = document.getElementById('source');
+const optionsEl = document.getElementById('options');
+const convertBtn = document.getElementById('convertBtn');
+
+function renderOptions() {
+  optionsEl.innerHTML = GROUPS.map(g => `
+    <div class="opt-group" role="radiogroup" aria-label="${g.label}">
+      <div class="opt-label">${g.label}</div>
+      <div class="chips">
+        ${g.options.map(o => `<button type="button" class="chip" role="radio" aria-checked="${state[g.key] === o}" data-key="${g.key}" data-value="${o}"><span class="radio" aria-hidden="true"></span>${o}</button>`).join('')}
+      </div>
+    </div>`).join('');
+}
+optionsEl.addEventListener('click', e => {
+  const chip = e.target.closest('.chip');
+  if (!chip) return;
+  document.getElementById('inputPage').classList.remove('intro');   // 옵션을 바꾸면 진입 연출은 바로 끝냄
+  state[chip.dataset.key] = chip.dataset.value;
+  renderOptions();
+  optionsEl.querySelector(`.chip[data-key="${chip.dataset.key}"][data-value="${chip.dataset.value}"]`).focus();
+});
+function syncButton() { convertBtn.disabled = state.text.trim().length === 0; }
+source.addEventListener('input', () => { state.text = source.value; syncButton(); });
+// 변환 버튼: 0.6초 동안 '바꾸는 중...'을 보여 준 뒤 결과 화면으로 이동 (중복 클릭 방지)
+convertBtn.addEventListener('click', () => {
+  if (convertBtn.disabled) return;
+  convertBtn.disabled = true;
+  convertBtn.classList.add('is-loading');
+  convertBtn.innerHTML = '<span class="spinner" aria-hidden="true"></span>바꾸는 중...';
+  setTimeout(() => {
+    convertBtn.classList.remove('is-loading');
+    convertBtn.textContent = '회사 말투로 바꾸기';
+    go('result');
+  }, 600);
+});
+// 입력창 높이를 내용에 맞춰 늘려, 안쪽 스크롤 없이 전체 문장이 보이게 함
+function fitSource() {
+  source.style.height = 'auto';
+  source.style.height = Math.max(160, source.scrollHeight + 2) + 'px';
+}
+source.addEventListener('input', fitSource);
+window.addEventListener('resize', () => { if (state.screen === 'input') fitSource(); });
+if (document.fonts) document.fonts.ready.then(() => { if (state.screen === 'input') fitSource(); });
+function renderInput() {
+  source.value = state.text;
+  renderOptions();
+  syncButton();
+  fitSource();
+}
+
+
+/* ===== 규칙 기반 변환 (샘플에 없는 문장용) =====
+ * 참고 원칙
+ *  - 국립국어원 『표준 언어 예절』의 직장 언어 예절: 직장에서는 상대에 따라 높임을 조절하되 아랫사람에게도 존댓말을 쓰고,
+ *    윗사람에게 '수고하세요' 같은 인사는 쓰지 않으며, '좋은 하루 되세요'보다 '좋은 하루 보내세요'를 권함.
+ *  - 업무 글쓰기 일반 원칙: 따지거나 단정하는 표현을 완곡하게, 지시는 요청으로, 핵심 정보(숫자·날짜)는 그대로.
+ */
+const RULEBOOK = {
+  // 1. 상대방·톤에 따른 높임 수준
+  speechLevel: {
+    high: ['상사', '외부 고객'],           // 주체 높임(-시-)과 정중한 요청을 적용할 상대
+    formalTone: '격식 있게',               // 이 톤이면 하십시오체(~습니다)로 정리
+    noFormalFor: ['후배']                  // 후배에게는 격식 톤이어도 해요체 유지
+  },
+
+  // 2. 표현 치환 사전 (위에서부터 순서대로 적용)
+  //    cat: '이렇게 바뀌었어요'에 표시할 변화 종류 / high: 윗사람·외부 고객에게만 적용
+  phrases: [
+    // 구어 표현·문장부호 정리
+    { re: /ㅋ{2,}|ㅎ{2,}|ㅠ+|ㅜ+|ㅡㅡ|;{2,}/g, to: '', cat: 'slang' },
+    { re: /!{2,}/g, to: '!', cat: 'slang' },
+    { re: /\?{2,}/g, to: '?', cat: 'slang' },
+    { re: /~+(?=[\s.?!]|$)/g, to: '', cat: 'slang' },
+    { re: /\.{2,}|…/g, to: '.', cat: 'slang' },
+    { re: /(^|\s)(오키|ㅇㅋ|ㅇㅇ)(?=[\s.?!]|$)/g, to: '$1알겠어요', cat: 'slang' },
+    { re: /(^|\s)근데(?=\s)/g, to: '$1그런데', cat: 'slang' },
+    { re: /(^|\s)걍(?=\s)/g, to: '$1그냥', cat: 'slang' },
+
+    // 따지는 질문 → 확인하는 질문
+    { re: /(^|\s)왜 (?=아직|안 |답|연락|말씀|말 )/g, to: '$1혹시 ', cat: 'blame' },
+
+    // 단정적인 거절 → 완곡한 거절
+    { re: /못 ?할 것 같아요/g, to: '어려울 것 같아요', cat: 'refusal' },
+    { re: /못 ?해요/g, to: '어려울 것 같아요', cat: 'refusal' },
+    { re: /못 ?해(?=[\s.?!]|$)/g, to: '어려울 것 같아요', cat: 'refusal' },
+    { re: /안 ?돼요/g, to: '어려울 것 같아요', cat: 'refusal' },
+    { re: /안 ?돼(?=[\s.?!]|$)/g, to: '어려울 것 같아요', cat: 'refusal' },
+    { re: /싫어요|싫어(?=[\s.?!]|$)/g, to: '어려울 것 같아요', cat: 'refusal' },
+    { re: /몰라요|몰라(?=[\s.?!]|$)/g, to: '잘 모르겠어요', cat: 'refusal' },
+
+    // 단정적인 부정 의견 → 보완점을 짚는 표현
+    { re: /별로인 것 같/g, to: '아쉬운 부분이 있는 것 같', cat: 'opinion' },
+    { re: /별로예요|별로야|별로네요/g, to: '아쉬운 부분이 있어요', cat: 'opinion' },
+    { re: /말이 안 ?돼요/g, to: '다시 검토가 필요해 보여요', cat: 'opinion' },
+
+    // 강한 표현 완화
+    { re: /빨리빨리/g, to: '가능한 한 빨리', cat: 'strong' },
+    { re: /당장/g, to: '가급적 빨리', cat: 'strong' },
+    { re: /무조건/g, to: '꼭', cat: 'strong' },
+    { re: /너무 (?=빡빡|힘들|많|어렵|급|늦|바쁘|바빠)/g, to: '다소 ', cat: 'degree' },
+    { re: /빡빡/g, to: '빠듯', cat: 'degree' },
+
+    // 지시 대명사 정리
+    { re: /(^|\s)그거(?=[\s,.?!]|$)/g, to: '$1그 건', cat: 'demonstr' },
+    { re: /(^|\s)이거(?=[\s,.?!]|$)/g, to: '$1이 건', cat: 'demonstr' },
+    { re: /(^|\s)저거(?=[\s,.?!]|$)/g, to: '$1저 건', cat: 'demonstr' },
+
+    // 직장 언어 예절 (표준 언어 예절)
+    { re: /수고하세요|수고하십시오|수고하셨습니다/g, to: '감사합니다', cat: 'etiquette', high: true },
+    { re: /좋은 하루 되세요/g, to: '좋은 하루 보내세요', cat: 'etiquette' },
+    { re: /([가-힣]+)하실게요/g, to: '$1해 주세요', cat: 'etiquette' },
+    { re: /(확인|참고|회신) 바랍니다/g, to: '$1 부탁드립니다', cat: 'etiquette', high: true }
+  ],
+
+  // 3. '이렇게 바뀌었어요'에 표시할 문구 (우선순위 순)
+  labels: [
+    ['blame', ['따지는 질문 "왜 ~"', '확인하는 질문으로 변경']],
+    ['refusal', ['단정적인 거절', '완곡한 거절 표현으로 변경']],
+    ['opinion', ['단정적인 부정 표현', '보완점을 짚는 표현으로 변경']],
+    ['etiquette', ['직장 예절에 맞지 않는 표현', '표준 언어 예절에 맞게 변경']],
+    ['request', ['지시형·반말 요청', '정중한 요청 표현으로 변경']],
+    ['honor', ['상대방의 행동 표현', '높임 표현(-시-)으로 변경']],
+    ['strong', ['강한 표현', '완곡한 표현으로 완화']],
+    ['formal', ['해요체·반말 어미', '격식 있는 하십시오체로 변경']],
+    ['polite', ['반말 어미', '존댓말(해요체)로 변경']],
+    ['degree', ['과장된 표현 "너무"', '"다소"로 완화']],
+    ['slang', ['구어 표현(ㅋㅋ, !!, ~ 등)', '업무용 문장으로 정리']],
+    ['cushion', '요청 앞에 쿠션 표현 추가'],
+    ['demonstr', ['"그거·이거"', '"그 건·이 건"으로 정리']]
+  ],
+
+  // 4. 전달 채널별 형식
+  email: {
+    greetingFormal: '안녕하십니까.',
+    greeting: '안녕하세요.',
+    closing: '감사합니다.',
+    closingJunior: '고마워요.'
+  }
+};
+
+/* ---------- 한글 음절 도우미 ---------- */
+const HANGUL_BASE = 0xAC00;
+const jong = ch => { const c = ch.charCodeAt(0) - HANGUL_BASE; return (c >= 0 && c < 11172) ? c % 28 : -1; };
+const withJong = (ch, j) => String.fromCharCode(ch.charCodeAt(0) - jong(ch) + j);
+const J = { NONE: 0, RIEUL: 8, BIEUP: 17, SSANG_S: 20 };
+
+/* ---------- 문장 끝 변환 ---------- */
+// 반말 → 해요체
+function toPolite(core) {
+  const rules = [
+    [/\s?줘$/, ' 주세요'], [/거야$/, '거예요'], [/이야$/, '이에요'],
+    [/해라$/, '해 주세요'], [/했어$/, '했어요'], [/있어$/, '있어요'], [/없어$/, '없어요'],
+    [/같아$/, '같아요'], [/돼$/, '돼요'], [/해$/, '해요'], [/(했|됐|있|없|갔|왔|봤)지$/, '$1죠'],
+    [/(했|됐|있|없|갔|왔|봤|하)니$/, '$1나요'], [/(했|됐|있|없|갔|왔|봤|하)냐$/, '$1나요']
+  ];
+  for (const [re, to] of rules) if (re.test(core)) return core.replace(re, to);
+  // ㄹ게 → ㄹ게요 (할게, 보낼게)
+  const m = core.match(/([가-힣])게$/);
+  if (m && jong(m[1]) === J.RIEUL) return core + '요';
+  // 과거형 ~었어/았어 → ~요
+  const m2 = core.match(/([가-힣])어$/);
+  if (m2 && jong(m2[1]) === J.SSANG_S) return core + '요';
+  return core;
+}
+
+// 해요체 → 하십시오체
+function toFormal(core, isQ) {
+  let out = null;
+  const fixed = [
+    [/거예요$/, '것입니다'], [/(이에요|예요)$/, '입니다'], [/해요$/, '합니다'], [/돼요$/, '됩니다'],
+    [/봐요$/, '봅니다'], [/줘요$/, '줍니다'], [/없어요$/, '없습니다'], [/죠$/, '지요']
+  ];
+  for (const [re, to] of fixed) if (re.test(core)) { out = core.replace(re, to); break; }
+  if (!out) {
+    let m;
+    if ((m = core.match(/([가-힣])게요$/)) && jong(m[1]) === J.RIEUL) {
+      out = core.slice(0, -3) + withJong(m[1], J.NONE) + '겠습니다';         // 할게요 → 하겠습니다
+    } else if ((m = core.match(/([가-힣])워요$/)) && jong(m[1]) === J.NONE) {
+      out = core.slice(0, -3) + withJong(m[1], J.BIEUP) + '습니다';           // 어려워요 → 어렵습니다
+    } else if ((m = core.match(/([가-힣])[아어]요$/)) && jong(m[1]) > 0 && jong(m[1]) !== J.RIEUL) {
+      out = core.slice(0, -2) + '습니다';                                       // 있어요·같아요 → 있습니다·같습니다
+    } else if ((m = core.match(/([가-힣])나요$/))) {
+      out = jong(m[1]) > 0 && jong(m[1]) !== J.RIEUL
+        ? core.slice(0, -2) + '습니까'                                          // 있나요 → 있습니까
+        : core.slice(0, -3) + withJong(m[1], J.BIEUP) + '니까';               // 하나요 → 합니까
+    }
+  }
+  if (!out) return { core, hit: false };
+  if (isQ) out = out.replace(/니다$/, '니까');
+  return { core: out, hit: true };
+}
+
+/* ---------- 메인 변환 ---------- */
+function ruleConvert(input, opts) {
+  const R = RULEBOOK;
+  const high = R.speechLevel.high.includes(opts.target);
+  const junior = opts.target === '후배';
+  const formalTarget = opts.tone === R.speechLevel.formalTone && !R.speechLevel.noFormalFor.includes(opts.target);
+  const soft = opts.tone === '부드럽게';
+  const fired = new Set();
+  let em = '';
+
+  // 1) 표현 치환
+  let text = input.trim().replace(/[ \t]+/g, ' ');
+  for (const p of R.phrases) {
+    if (p.high && !high) continue;
+    p.re.lastIndex = 0;
+    if (p.re.test(text)) {
+      p.re.lastIndex = 0;
+      text = text.replace(p.re, p.to);
+      fired.add(p.cat);
+    }
+  }
+  text = text.replace(/[ \t]+/g, ' ').replace(/ +([.,?!])/g, '$1').trim();
+
+  // 2) 이메일이면 기존 인사·마무리를 떼어 두었다가 형식에 맞춰 다시 붙임
+  let hadGreeting = false, hadClosing = false;
+  if (opts.channel === '이메일') {
+    text = text.replace(/^(안녕하세요|안녕하십니까|안녕)[.!,]?\s*/, () => { hadGreeting = true; return ''; });
+    text = text.replace(/\s*(감사합니다|고맙습니다|감사해요|고마워요)[.!]?$/, () => { hadClosing = true; return ''; });
+  }
+
+  // 3) 문장 단위 변환
+  const lines = text.split('\n').map(line => {
+    const parts = line.match(/[^.?!]+[.?!]*\s*/g) || [];
+    return parts.map(part => {
+      const m = part.match(/^([\s\S]*?)([.?!]*)\s*$/);
+      let core = m[1].trim();
+      let punct = m[2];
+      if (!core) return null;
+      let isQ = punct.includes('?');
+      // 물음표 없이 끝난 질문 찾기 (의문사·'혹시'로 시작하는 문장)
+      if (!punct && /(언제|어디|무엇|뭐|어떻게|몇|누가|누구|혹시)/.test(core) && /(요|어|니|냐|까)$/.test(core)) isQ = true;
+      // '혹시'가 문장 중간에 들어갔으면 문장 맨 앞으로 옮김
+      if (/\s혹시\s/.test(core)) core = '혹시 ' + core.replace(/\s혹시\s/, ' ');
+      let done = false;
+
+      // 반말 → 해요체
+      const polite = toPolite(core);
+      if (polite !== core) { core = polite; fired.add('polite'); }
+
+      // "~줄 수 있어요?" → 정중한 요청 질문
+      if (/줄 수 (있어요|있나요|있어|있니|있냐|있을까요)$/.test(core)) {
+        core = core.replace(/줄 수 (있어요|있나요|있어|있니|있냐|있을까요)$/, high || formalTarget ? '주실 수 있을까요' : '줄 수 있을까요');
+        em = em || (high || formalTarget ? '주실 수 있을까요' : '줄 수 있을까요');
+        isQ = true; done = true; fired.add('request');
+      }
+
+      // "~주세요" → 상대·톤에 맞는 요청
+      if (!done && /주세요$/.test(core)) {
+        core = core.replace(/([가-힣])주세요$/, '$1 주세요');
+        let to = null, q = false;
+        if (formalTarget) to = '주시면 감사하겠습니다';
+        else if (high && soft) { to = '주실 수 있을까요'; q = true; }
+        else if (high) { to = '주시겠어요'; q = true; }
+        else if (soft) { to = '줄 수 있을까요'; q = true; }
+        else if (junior && opts.tone === '격식 있게') { to = '주시겠어요'; q = true; }
+        if (to) {
+          core = core.replace(/주세요$/, to);
+          em = em || to; isQ = q; done = true; fired.add('request');
+        }
+      }
+
+      // "부탁해요" → "부탁드려요/부탁드립니다"
+      if (!done && /부탁(해요|합니다)$/.test(core)) {
+        const to = formalTarget ? '부탁드립니다' : '부탁드려요';
+        core = core.replace(/부탁(해요|합니다)$/, to);
+        em = em || to; done = true; fired.add('request');
+      }
+
+      // 윗사람의 행동을 묻는 질문 → 주체 높임(-시-)
+      if (!done && high && isQ) {
+        const honor = formalTarget
+          ? [[/했어요$/, '하셨습니까'], [/했나요$/, '하셨습니까'], [/하나요$/, '하십니까'], [/해요$/, '하십니까'], [/있어요$/, '있으십니까']]
+          : [[/했어요$/, '하셨나요'], [/했나요$/, '하셨나요'], [/하나요$/, '하시나요'], [/해요$/, '하시나요'], [/있어요$/, '있으신가요']];
+        for (const [re, to] of honor) if (re.test(core)) { core = core.replace(re, to); done = true; fired.add('honor'); break; }
+      }
+
+      // 윗사람에게 "줄게요" → "드릴게요"
+      if (high && /\s?줄게요$/.test(core)) core = core.replace(/\s?줄게요$/, ' 드릴게요');
+
+      // 격식 톤 → 하십시오체
+      if (!done && formalTarget && !/(니다|니까)$/.test(core)) {
+        const f = toFormal(core, isQ);
+        if (f.hit) { core = f.core; fired.add('formal'); }
+      }
+      if (high) core = core.replace(/\s?주겠습니다$/, ' 드리겠습니다');
+
+      // 문장부호 정리
+      if (!punct || punct.length > 1) punct = isQ ? '?' : '.';
+      if (isQ && punct !== '?') punct = '?';
+      if (!isQ && (formalTarget || high) && punct === '!') { punct = '.'; fired.add('slang'); }
+      return { core, punct, isRequest: done && fired.has('request') };
+    }).filter(Boolean);
+  });
+
+  // 4) 부드럽게: 첫 요청 문장 앞에 쿠션 표현
+  if (soft) {
+    outer: for (const line of lines) for (const s of line) {
+      if (/(주실 수|줄 수|주시겠어요|부탁드려요|부탁드립니다|주시면)/.test(s.core)) {
+        if (!/^(혹시|번거로우|죄송|바쁘|괜찮으)/.test(s.core)) {
+          s.core = (high ? '번거로우시겠지만 ' : '혹시 ') + s.core;
+          fired.add('cushion');
+        }
+        break outer;
+      }
+    }
+  }
+
+  const sep = opts.channel === '이메일' ? '\n' : ' ';
+  let body = lines.map(line => line.map(s => s.core + s.punct).join(sep)).filter(Boolean).join('\n');
+
+  // 5) 이메일 형식
+  let addedFormat = false;
+  if (opts.channel === '이메일') {
+    const greeting = formalTarget && high ? R.email.greetingFormal : R.email.greeting;
+    const closing = junior && opts.tone !== '격식 있게' ? R.email.closingJunior : R.email.closing;
+    body = greeting + '\n' + body + '\n' + closing;
+    addedFormat = !(hadGreeting && hadClosing);
+  }
+
+  // 6) 이렇게 바뀌었어요: 첫 줄은 고정 문구, 이어서 실제로 적용된 규칙을 빠짐없이, 마지막은 핵심 내용 유지
+  const changes = [['구어 표현', '업무용 문장으로 정리']];
+  for (const [cat, label] of R.labels) if (fired.has(cat) && cat !== 'slang') changes.push(label);  // slang은 첫 줄과 같은 내용
+  if (addedFormat) changes.push('인사와 마무리 문장 추가');
+  changes.push(/\d/.test(input) ? '핵심 내용(숫자·날짜 포함)은 그대로 유지' : '핵심 내용은 그대로 유지');
+
+  // 7) 원문과 비교해 바뀌거나 추가된 단어를 강조 구간으로 표시
+  // 7) 핵심 요청 표현을 강조 구간으로 (나머지 바뀐 부분은 화면에서 원문과 비교해 표시)
+  const i = em ? body.lastIndexOf(em) : -1;
+  const result = i < 0 ? { pre: body, em: '', post: '' } : { pre: body.slice(0, i), em, post: body.slice(i + em.length) };
+  return { result, changes };
+}
+
+// 단어 단위로 원문과 결과를 비교(최장 공통 부분열)해, 결과에서 새로 생기거나 바뀐 단어를 찾음
+function markChanges(input, output) {
+  const PARTICLE = /(으로|에서|까지|부터|에게|께서|을|를|이|가|은|는|의|에|로|와|과|도|만)$/;
+  const key = w => {
+    const k = w.replace(/[.,?!~…·"'ㅋㅎㅠㅜ]/g, '');
+    return k.length > 2 ? k.replace(PARTICLE, '') : k;          // '대사를'과 '대사가'를 같은 단어로 봄
+  };
+  const a = input.split(/\s+/).map(key).filter(Boolean);
+  const inputDigits = new Set(a.filter(w => /\d/.test(w)));
+  const parts = output.split(/(\s+)/);                    // 단어와 공백을 번갈아 보관
+  const words = parts.map((t, i) => ({ t, i, word: !/^\s*$/.test(t) })).filter(x => x.word);
+  const b = words.map(x => key(x.t));
+  // 어간이 같은 단어(예: '보내주세요'와 '보내')는 같은 단어로 봄
+  const eq = (x, y) => x === y || (Math.min(x.length, y.length) >= 2 && (x.startsWith(y) || y.startsWith(x)));
+  const n = a.length, m = b.length;
+  const L = Array.from({ length: n + 1 }, () => new Array(m + 1).fill(0));
+  for (let i = n - 1; i >= 0; i--) for (let j = m - 1; j >= 0; j--)
+    L[i][j] = eq(a[i], b[j]) ? L[i + 1][j + 1] + 1 : Math.max(L[i + 1][j], L[i][j + 1]);
+  const same = new Set();
+  // 숫자가 들어간 단어(날짜·기한)는 원문에 있으면 위치가 달라도 바뀌지 않은 것으로 봄
+  words.forEach((x, j) => { if (/\d/.test(b[j]) && inputDigits.has(b[j])) same.add(x.i); });
+  for (let i = 0, j = 0; i < n && j < m;) {
+    if (eq(a[i], b[j])) { same.add(words[j].i); i++; j++; }
+    else if (L[i + 1][j] >= L[i][j + 1]) i++; else j++;
+  }
+  // 바뀐 단어끼리는 사이의 띄어쓰기까지 묶어 하나의 강조 구간으로 만듦
+  const segs = [];
+  parts.forEach((t, i) => {
+    if (!t) return;
+    const isSpace = /^\s+$/.test(t);
+    let changed = !isSpace && !same.has(i) && key(t) !== '';
+    if (isSpace && !t.includes('\n')) {
+      const prev = segs[segs.length - 1];
+      const next = parts.slice(i + 1).find(x => x && !/^\s+$/.test(x));
+      const nextIdx = parts.indexOf(next, i + 1);
+      changed = !!(prev && prev.em && next && !same.has(nextIdx) && key(next) !== '');
+    }
+    const last = segs[segs.length - 1];
+    if (last && last.em === changed) last.text += t; else segs.push({ text: t, em: changed });
+  });
+  return segs;
+}
+
+/* ===== 예문별 옵션 조합 결과 =====
+ * 각 예문 × 상대방(4) × 톤(3)마다 본문 문장을 준비하고, 전달 채널(메신저/이메일)에 따라 인사·마무리를 붙인다.
+ * [[ ]] 안의 표현이 변환된 문장에서 파란 굵은 글씨로 강조된다.
+ * 예문의 기본 옵션 조합은 원래 준비된 결과(PRESETS)를 그대로 쓴다.
+ * 배열 순서: [부드럽게, 기본, 격식 있게]
+ */
+const VARIANTS = {
+  '기본 예시': {
+    '상사': [
+      ['팀장님, 김삼일입니다.', '앞서 보내드린 민국테크 금융조회서 회신 건으로 연락드려요.', '장부 대사 일정이 조금 촉박해서, 바쁘시겠지만 [[20일까지 우편으로 회신해 주실 수 있을까요]]?'],
+      ['팀장님, 김삼일입니다.', '앞서 보내드린 민국테크 금융조회서 회신 건으로 연락드립니다.', '장부 대사 일정상 [[20일까지 우편으로 회신 부탁드립니다]].'],
+      ['팀장님, 김삼일입니다.', '앞서 송부드린 민국테크 금융조회서 회신 건으로 보고드립니다.', '장부 대사를 위해 일정이 다소 촉박하여, [[20일까지 우편으로 회신해 주시면 감사하겠습니다]].']
+    ],
+    '동료': [
+      ['민국테크 금융조회서 회신 건으로 연락드려요.', '장부 대사 때문에 일정이 조금 급해서요, 혹시 [[20일까지 우편으로 회신해 줄 수 있을까요]]?'],
+      ['민국테크 금융조회서 회신 건으로 연락드려요.', '장부 대사 일정 때문에 [[20일까지 우편으로 회신 부탁드려요]].'],
+      ['민국테크 금융조회서 회신 건으로 연락드립니다.', '장부 대사 일정이 다소 촉박하여, [[20일까지 우편으로 회신해 주시면 감사하겠습니다]].']
+    ],
+    '후배': [
+      ['민국테크 금융조회서 회신 건이에요.', '장부 대사 일정이 조금 급해서 그런데, 혹시 [[20일까지 우편으로 회신해 줄 수 있을까요]]?'],
+      ['민국테크 금융조회서 회신 건이에요.', '장부 대사 때문에 [[20일까지 우편으로 회신해 주세요]].'],
+      ['민국테크 금융조회서 회신 건으로 연락드립니다.', '장부 대사 일정상 [[20일까지 우편으로 회신 부탁드립니다]].']
+    ],
+    '외부 고객': [
+      ['대한은행 담당자님, 김삼일 회계사입니다.', '앞서 보내드린 민국테크의 금융조회서 회신 건으로 연락드려요.', '장부 대사 일정이 조금 촉박해서, 번거로우시겠지만 [[20일까지 우편으로 회신해 주실 수 있을까요]]?'],
+      ['대한은행 담당자님, 김삼일 회계사입니다.', '앞서 보내드린 민국테크의 금융조회서 회신 건으로 연락드립니다.', '장부 대사 일정상 [[20일까지 우편으로 회신 부탁드립니다]].'],
+      ['대한은행 담당자님, 김삼일 회계사입니다.', '앞서 송부드린 민국테크의 금융조회서 회신 건으로 연락드립니다.', '장부 대사를 위해 회신 일정이 다소 촉박하여, 번거로우시겠지만 [[20일까지 우편으로 회신해 주시면 감사하겠습니다]].']
+    ]
+  },
+  '자료 요청': {
+    '상사': [
+      ['어제 말씀드린 정리 자료, 혹시 진행 상황이 어떠신지 여쭤봐도 될까요?', '가능하시다면 오늘 중으로 [[공유해 주시면 정말 감사하겠습니다]].'],
+      ['어제 말씀드린 정리 자료 진행 상황이 궁금합니다.', '가능하면 오늘 중으로 [[공유 부탁드립니다]].'],
+      ['어제 말씀드린 정리 자료의 진행 상황을 여쭙고자 합니다.', '가급적 오늘 중으로 [[공유해 주시면 감사하겠습니다]].']
+    ],
+    '동료': [
+      ['어제 이야기한 정리 자료, 혹시 진행 상황 어떤지 궁금해요.', '괜찮으면 오늘 중으로 [[공유해 줄 수 있을까요]]?'],
+      ['어제 이야기한 정리 자료 진행 상황이 궁금해요.', '가능하면 오늘 중으로 [[공유 부탁드려요]].'],
+      ['어제 말씀드린 정리 자료의 진행 상황을 확인하고자 합니다.', '가급적 오늘 중으로 [[공유 부탁드립니다]].']
+    ],
+    '후배': [
+      ['어제 이야기한 정리 자료, 진행은 잘 되고 있어요?', '바쁘겠지만 오늘 중으로 [[공유해 주면 고마울 것 같아요]].'],
+      ['어제 이야기한 정리 자료, 진행 상황이 어떤지 궁금해요.', '가능하면 오늘 중으로 [[공유 부탁드려요]]!'],
+      ['어제 이야기한 정리 자료의 진행 상황을 확인하고 싶습니다.', '가급적 오늘 중으로 [[공유해 주시기 바랍니다]].']
+    ],
+    '외부 고객': [
+      ['어제 말씀드린 정리 자료 건으로 연락드려요.', '번거로우시겠지만 가능하시면 오늘 중으로 [[보내 주실 수 있을까요]]?'],
+      ['어제 말씀드린 정리 자료 건으로 연락드립니다.', '가능하시면 오늘 중으로 [[전달 부탁드립니다]].'],
+      ['어제 요청드린 정리 자료 건으로 연락드립니다.', '가급적 금일 중으로 [[전달해 주시면 감사하겠습니다]].']
+    ]
+  },
+  '답장 리마인드': {
+    '상사': [
+      ['지난번 보내드린 메일 혹시 확인해 보셨을까요?', '바쁘시겠지만 시간 되실 때 [[한번 봐 주시면 감사하겠습니다]].'],
+      ['지난번 보내드린 메일 건으로 다시 말씀드립니다.', '확인 후 [[의견 주시면 감사하겠습니다]].'],
+      ['지난번 보고드린 메일 건으로 다시 말씀드립니다.', '검토 후 [[회신 주시면 감사하겠습니다]].']
+    ],
+    '동료': [
+      ['지난번에 보낸 메일 혹시 확인했어요?', '시간 될 때 [[답장 주면 고마워요]].'],
+      ['지난번에 보낸 메일 건으로 다시 연락드려요.', '확인하고 [[답장 부탁드려요]].'],
+      ['지난번 보내드린 메일 건으로 다시 연락드립니다.', '확인 후 [[회신 부탁드립니다]].']
+    ],
+    '후배': [
+      ['지난번에 보낸 메일 혹시 봤어요?', '여유 될 때 [[답장 줄 수 있을까요]]?'],
+      ['지난번에 보낸 메일 확인했나요?', '확인하고 [[답장 부탁해요]].'],
+      ['지난번 보낸 메일 건으로 다시 연락드립니다.', '확인 후 [[회신 부탁드립니다]].']
+    ],
+    '외부 고객': [
+      ['지난번 보내드린 메일 혹시 확인해 보셨을까요?', '편하실 때 [[회신 주시면 감사하겠습니다]].'],
+      ['지난번 보내드린 메일 건으로 다시 연락드립니다.', '확인 후 [[회신 부탁드립니다]].'],
+      ['지난번 보내드린 메일 건으로 다시 연락드립니다.', '내용 검토 후 [[회신 주시면 감사하겠습니다]].']
+    ]
+  },
+  '부탁 거절': {
+    '상사': [
+      ['말씀 주셔서 감사합니다.', '그런데 이번 주는 맡은 일이 많아서 [[제가 맡기는 어려울 것 같습니다]].', '도움 드리지 못해 죄송합니다.'],
+      ['이번 주는 맡은 업무가 많아 [[제가 맡기는 어려울 것 같습니다]].', '양해 부탁드립니다.'],
+      ['말씀 주셔서 감사합니다.', '다만 이번 주는 기존 업무 일정으로 [[해당 건을 맡기 어려운 상황입니다]].', '너그러운 양해 부탁드립니다.']
+    ],
+    '동료': [
+      ['말해 줘서 고마워요.', '그런데 이번 주는 맡은 일이 많아서 [[제가 맡기는 어려울 것 같아요]].', '도움 드리지 못해 미안해요.'],
+      ['이번 주는 맡은 일이 많아서 [[제가 맡기는 어려울 것 같아요]].', '양해 부탁드려요.'],
+      ['말씀 주셔서 감사합니다.', '다만 이번 주는 진행 중인 업무가 많아 [[해당 건은 맡기 어려울 것 같습니다]].', '양해 부탁드립니다.']
+    ],
+    '후배': [
+      ['말해 줘서 고마워요.', '그런데 이번 주는 제 업무가 많아서 [[이번엔 맡기 어려울 것 같아요]].', '도와주지 못해 미안해요.'],
+      ['이번 주는 제 업무가 많아서 [[맡기 어려울 것 같아요]].', '이해 부탁해요.'],
+      ['이번 주는 진행 중인 업무가 많아 [[해당 건은 맡기 어렵습니다]].', '양해 부탁드립니다.']
+    ],
+    '외부 고객': [
+      ['요청 주셔서 감사합니다.', '다만 이번 주는 진행 중인 업무가 많아 [[이번 건은 맡기 어려울 것 같습니다]].', '도움 드리지 못해 죄송합니다.'],
+      ['요청 주셔서 감사합니다.', '이번 주는 일정상 [[해당 건 진행이 어려울 것 같습니다]].'],
+      ['요청 주셔서 감사합니다.', '다만 금주는 기존 업무 일정으로 인해 [[해당 건 진행이 어려운 점 양해 부탁드립니다]].']
+    ]
+  },
+  '실수 사과': {
+    '상사': [
+      ['조금 전 보내드린 파일이 잘못 첨부되었어요.', '[[제가 확인을 제대로 못 했네요, 죄송합니다]].', '수정한 파일로 바로 다시 보내드릴게요.'],
+      ['조금 전 보내드린 파일이 잘못 첨부되었습니다.', '[[죄송합니다]].', '수정한 파일 바로 다시 보내드리겠습니다.'],
+      ['조금 전 보내드린 파일이 잘못 첨부되었습니다.', '[[확인이 부족했던 점 죄송합니다]].', '수정한 파일 바로 다시 보내드리겠습니다.']
+    ],
+    '동료': [
+      ['아까 보낸 파일이 잘못 첨부됐어요.', '[[제가 확인을 못 했네요, 미안해요]].', '수정한 파일로 바로 다시 보낼게요.'],
+      ['아까 보낸 파일이 잘못 첨부됐어요.', '[[미안해요]], 수정한 파일 바로 다시 보낼게요.'],
+      ['조금 전 보내드린 파일이 잘못 첨부되었습니다.', '[[확인이 부족했던 점 죄송합니다]].', '수정한 파일 바로 다시 보내드리겠습니다.']
+    ],
+    '후배': [
+      ['아까 보낸 파일이 잘못 갔어요.', '[[제가 확인을 못 했어요, 미안해요]].', '맞는 파일로 바로 다시 보낼게요.'],
+      ['아까 보낸 파일이 잘못 첨부됐어요.', '[[맞는 파일로 바로 다시 보낼게요]].'],
+      ['조금 전 보낸 파일이 잘못 첨부되었습니다.', '[[혼란을 드려 미안합니다]].', '수정한 파일 바로 다시 보내겠습니다.']
+    ],
+    '외부 고객': [
+      ['조금 전 보내드린 파일이 잘못 첨부되었어요.', '바쁘신 와중에 [[번거롭게 해 드려 정말 죄송합니다]].', '수정한 파일로 바로 다시 보내드릴게요.'],
+      ['조금 전 보내드린 파일이 잘못 첨부되었습니다.', '[[혼란을 드려 죄송합니다]].', '수정한 파일 바로 다시 보내드리겠습니다.'],
+      ['조금 전 송부드린 파일이 잘못 첨부되었습니다.', '[[확인이 미흡했던 점 진심으로 사과드립니다]].', '수정한 파일을 즉시 다시 송부드리겠습니다.']
+    ]
+  },
+  '상사에게 완료 보고': {
+    '상사': [
+      ['요청하신 보고서 작성을 마쳐서 첨부해 드려요.', '바쁘시겠지만 [[편하실 때 한번 검토해 주시면 감사하겠습니다]].', '수정할 부분이 있으면 말씀해 주세요, 바로 반영하겠습니다.'],
+      ['요청하신 보고서 작성을 완료해서 첨부드립니다.', '[[검토 부탁드립니다]].'],
+      ['지시하신 보고서 작성을 완료하여 첨부와 같이 보고드립니다.', '[[검토해 주시고 수정이 필요한 부분은 말씀해 주시면 반영하겠습니다]].']
+    ],
+    '동료': [
+      ['부탁한 보고서 다 정리해서 첨부했어요.', '시간 될 때 [[한번 확인해 줄 수 있을까요]]?', '고칠 부분 있으면 편하게 말해 주세요.'],
+      ['부탁한 보고서 작성 끝나서 첨부했어요.', '[[확인 부탁드려요]].'],
+      ['요청하신 보고서 작성을 완료하여 첨부드립니다.', '[[검토 부탁드립니다]].']
+    ],
+    '후배': [
+      ['부탁한 보고서 다 정리해서 첨부했어요.', '여유 될 때 [[한번 봐 줄 수 있을까요]]?', '궁금한 점 있으면 편하게 물어봐요.'],
+      ['요청한 보고서 작성 끝나서 첨부했어요.', '[[확인해 주세요]].'],
+      ['요청한 보고서 작성을 완료하여 첨부합니다.', '[[검토 부탁드립니다]].']
+    ],
+    '외부 고객': [
+      ['요청하신 보고서 작성을 마쳐 첨부해 드립니다.', '번거로우시겠지만 [[편하실 때 검토해 주시면 감사하겠습니다]].', '수정이 필요한 부분이 있으면 말씀해 주세요.'],
+      ['요청하신 보고서 작성을 완료하여 첨부드립니다.', '[[검토 부탁드립니다]].'],
+      ['요청하신 보고서 작성을 완료하여 첨부와 같이 송부드립니다.', '[[검토해 주시고 의견 주시면 반영하겠습니다]].']
+    ]
+  }
+};
+
+const TONE_INDEX = { '부드럽게': 0, '기본': 1, '격식 있게': 2 };
+
+// 이메일 인사·마무리 (상대방·톤에 따라)
+function emailGreeting(target, tone) {
+  return tone === '격식 있게' && (target === '상사' || target === '외부 고객') ? '안녕하십니까.' : '안녕하세요.';
+}
+function emailClosing(target, tone) {
+  if (target === '후배' && tone !== '격식 있게') return '고마워요.';
+  if (tone === '부드럽게' && (target === '상사' || target === '외부 고객')) return '감사합니다. 좋은 하루 보내세요.';
+  return '감사합니다.';
+}
+
+// 상대방·톤에 따른 '이렇게 바뀌었어요' 항목
+function toneChange(target, tone) {
+  if (tone === '격식 있게') return ['일상적인 말투', '격식 있는 종결 어미(~습니다)로 변경'];
+  if (tone === '부드럽게') return ['딱딱할 수 있는 표현', '쿠션 표현을 넣어 부드럽게 다듬기'];
+  return (target === '상사' || target === '외부 고객')
+    ? ['일상적인 말투', '정중한 높임 표현으로 변경']
+    : ['일상적인 말투', '간결한 해요체로 정리'];
+}
+
+// 예문 + 옵션 조합으로 결과 만들기
+function presetResult(name, opts) {
+  const p = PRESETS[name];
+  if (opts.target === p.target && opts.tone === p.tone && opts.channel === p.channel) {
+    return { result: p.result, changes: p.changes };
+  }
+  const lines = VARIANTS[name][opts.target][TONE_INDEX[opts.tone]];
+  let text = lines.join('\n');
+  if (opts.channel === '이메일') {
+    text = emailGreeting(opts.target, opts.tone) + '\n' + text + '\n' + emailClosing(opts.target, opts.tone);
+  }
+  const m = text.match(/^([\s\S]*?)\[\[([\s\S]*?)\]\]([\s\S]*)$/);
+  const result = m ? { pre: m[1], em: m[2], post: m[3] } : { pre: text, em: '', post: '' };
+  // 기본 예시의 첫 항목은 '이메일 문체'에 관한 내용이라, 채널과 무관한 두 번째 항목을 대표로 씀
+  const core = name === '기본 예시' ? p.changes[1] : p.changes[0];
+  const body = lines.join(' ');
+  const changes = [core, toneChange(opts.target, opts.tone)];
+  if (name === '기본 예시' && opts.target !== '외부 고객') changes.push('호칭과 자기소개를 상대에 맞게 조정');
+  const thanks = /(주셔서|줘서) (감사|고마)/.test(body), excuse = /(양해|이해 부탁)/.test(body);
+  if (thanks && excuse) changes.push('감사와 양해 표현 추가');
+  else if (thanks) changes.push('감사 표현 추가');
+  else if (excuse) changes.push('양해를 구하는 표현 추가');
+  if (opts.channel === '이메일') changes.push('인사와 마무리 문장 추가');
+  changes.push(p.changes[p.changes.length - 1]);
+  return { result, changes };
+}
+
+/* ===== 화면 3 ===== */
+// 원본 v2와 동일: 앞뒤 공백만 자른 문장이 예문 원문과 완전히 같을 때만 결과를 보여 줌
+function findPreset(text) {
+  const trimmed = (text || '').trim();
+  return Object.values(PRESETS).find(p => p.text === trimmed) || null;
+}
+const esc = t => t.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const ARROW_RIGHT = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9AA3AF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>';
+const COPY_LABEL = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg><span>복사하기</span>';
+const COPIED_LABEL = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>복사했어요</span>';
+const copyBtn = document.getElementById('copyBtn');
+let copyTimer;
+// 화면 3에 보여 줄 결과: 샘플 예문이면 준비된 결과, 아니면 규칙 기반 변환
+let lastResult = null;
+function getResult() {
+  const trimmed = (state.text || '').trim();
+  const name = Object.keys(PRESETS).find(k => PRESETS[k].text === trimmed);
+  if (name) {
+    const r = presetResult(name, { target: state.target, tone: state.tone, channel: state.channel });
+    return { result: r.result, changes: r.changes, byRule: false, original: state.text };
+  }
+  try {
+    const r = ruleConvert(state.text, { target: state.target, tone: state.tone, channel: state.channel });
+    return { result: r.result, changes: r.changes, byRule: true, original: state.text };
+  } catch (e) {
+    return null;
+  }
+}
+// 변환된 문장 강조: 원문과 비교해 바뀌거나 추가된 부분은 파란색, 핵심 표현(em)은 파란 굵은 글씨
+function highlightHtml(original, r) {
+  const full = r.pre + r.em + r.post;
+  const emStart = r.em ? r.pre.length : -1, emEnd = r.em ? r.pre.length + r.em.length : -1;
+  const segs = markChanges(original, full);
+  let html = '', pos = 0;
+  for (const g of segs) {
+    // 핵심 표현 경계에서 구간을 나눔
+    let start = pos;
+    const end = pos + g.text.length;
+    const cuts = [start, end, emStart, emEnd].filter(x => x > start && x < end).sort((x, y) => x - y);
+    for (const c of [...cuts, end]) {
+      const piece = full.slice(start, c);
+      if (piece) {
+        const inEm = r.em && start >= emStart && c <= emEnd;
+        html += inEm ? '<strong>' + esc(piece) + '</strong>'
+          : g.em && /[가-힣A-Za-z0-9]/.test(piece) ? '<span class="chg">' + esc(piece) + '</span>' : esc(piece);
+      }
+      start = c;
+    }
+    pos = end;
+  }
+  return html;
+}
+function renderResult() {
+  lastResult = getResult();
+  const ok = !!lastResult;
+  document.getElementById('resOriginal').textContent = state.text;
+  const conv = document.getElementById('resConverted');
+  conv.hidden = !ok;
+  document.getElementById('resNone').hidden = ok;
+  document.getElementById('resChanges').hidden = !ok;
+  document.getElementById('resRuleNote').hidden = !(ok && lastResult.byRule);
+  // 결과가 나올 때마다 등장 효과를 처음부터 다시 재생
+  ['resConvBox', 'resChanges', 'resRuleNote'].forEach(id => {
+    const el = document.getElementById(id);
+    el.classList.remove('reveal');
+    void el.offsetWidth;
+    el.classList.add('reveal');
+  });
+  if (ok) {
+    const r = lastResult.result;
+    conv.innerHTML = highlightHtml(lastResult.original, r);
+    document.getElementById('resChangeList').innerHTML = lastResult.changes.map(c => Array.isArray(c)
+      ? `<li><span class="dot"></span><div class="chg-arrow"><span class="from">${esc(c[0])}</span>${ARROW_RIGHT}<span class="to">${esc(c[1])}</span></div></li>`
+      : typeof c === 'object'
+        ? `<li class="${c.muted ? 'is-muted' : ''}"><span class="dot"></span><div>${esc(c.text)}</div></li>`
+        : `<li><span class="dot"></span><div>${esc(c)}</div></li>`).join('');
+  }
+  clearTimeout(copyTimer);
+  copyBtn.innerHTML = COPY_LABEL;
+}
+copyBtn.addEventListener('click', () => {
+  const r = lastResult && lastResult.result;
+  const full = !r ? '' : r.pre + r.em + r.post;
+  try { if (full && navigator.clipboard) navigator.clipboard.writeText(full).catch(() => {}); } catch (e) {}
+  copyBtn.innerHTML = COPIED_LABEL;
+  clearTimeout(copyTimer);
+  copyTimer = setTimeout(() => { copyBtn.innerHTML = COPY_LABEL; }, 1800);
+});
+document.getElementById('editBtn').addEventListener('click', () => go('input', { intro: false }));
+
+
+/* ===== 화면 4 ===== */
+const SVG = inner => `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${inner}</svg>`;
+const SITUATIONS = [
+  { name: '자료 요청', tint: 'blue', icon: SVG('<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6"/><path d="M9 17h6"/>') },
+  { name: '답장 리마인드', tint: 'green', icon: SVG('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/>') },
+  { name: '부탁 거절', tint: 'pink', icon: SVG('<circle cx="12" cy="12" r="9"/><path d="M5.7 5.7l12.6 12.6"/>') },
+  { name: '실수 사과', tint: 'purple', icon: SVG('<circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5"/><path d="M12 16.5h.01"/>') },
+  { name: '상사에게 완료 보고', tint: 'yellow', icon: SVG('<path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l1-4.1A8 8 0 1 1 20 12z"/>') }
+];
+const CHEV = '<svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
+const sitGrid = document.getElementById('sitGrid');
+sitGrid.innerHTML = SITUATIONS.map(x => `
+  <button type="button" class="sit-card" data-name="${x.name}">
+    <span class="sit-icon" style="background: var(--tint-${x.tint}-bg); color: var(--tint-${x.tint})">${x.icon}</span>
+    <span class="sit-name">${x.name}</span>
+    ${CHEV}
+  </button>`).join('');
+// 원본 v2와 동일: 카드를 누르면 해당 예문과 기본 옵션을 채우고 화면 2로 이동
+sitGrid.addEventListener('click', e => {
+  const card = e.target.closest('.sit-card');
+  if (!card) return;
+  openGuide(card.dataset.name);
+});
+
+/* ===== 화면 4-1. 상황 가이드 ===== */
+const GUIDES = {
+  '자료 요청': {
+    desc: '받기로 한 자료를 부담 없이 다시 요청하고 싶을 때',
+    steps: ['어떤 자료인지 먼저 짚어요', '진행 상황을 묻는 말로 시작해요', '필요한 기한은 부드럽게 전해요'],
+    why: '재촉하는 질문과 지시형 문장은 상대에게 압박으로 느껴질 수 있어요.'
+  },
+  '답장 리마인드': {
+    desc: '보낸 메일에 답이 없어 다시 확인하고 싶을 때',
+    steps: ['어떤 메일인지 짚어요', '확인했는지 조심스럽게 물어요', '회신을 정중하게 요청해요'],
+    why: '답이 없다는 지적은 상대를 탓하는 말로 들릴 수 있어요.'
+  },
+  '부탁 거절': {
+    desc: '받은 부탁을 관계 상하지 않게 거절하고 싶을 때',
+    steps: ['먼저 말해 준 것에 고마움을 전해요', '거절하는 이유를 짧게 말해요', '양해를 구하며 마무리해요'],
+    why: '이유 없이 단정적으로 거절하면 상대가 서운하게 느낄 수 있어요.'
+  },
+  '실수 사과': {
+    desc: '내 실수를 알리고 바로잡겠다고 말하고 싶을 때',
+    steps: ['무엇이 잘못됐는지 알려요', '분명하게 사과해요', '어떻게 바로잡을지 말해요'],
+    why: '사실만 전하면 실수를 가볍게 여기는 것처럼 보일 수 있어요.'
+  },
+  '상사에게 완료 보고': {
+    desc: '상사가 맡긴 업무를 마치고 결과를 보고하고 싶을 때',
+    steps: ['어떤 업무를 마쳤는지 먼저 말해요', '결과물을 어디에 담았는지 알려요', '검토를 부탁하고 반영하겠다고 말해요'],
+    why: '"시키신", "확인해 보세요"처럼 지시하는 말투는 윗사람에게 무례하게 들릴 수 있어요.'
+  }
+
+};
+const guide = { name: '', opts: {} };
+function openGuide(name) {
+  const p = PRESETS[name];
+  guide.name = name;
+  guide.opts = { target: p.target, tone: p.tone, channel: p.channel };   // 상황별 기본 옵션으로 시작
+  go('guide');
+}
+function renderGuide() {
+  const sit = SITUATIONS.find(x => x.name === guide.name);
+  const g = GUIDES[guide.name];
+  const icon = document.getElementById('guideIcon');
+  icon.innerHTML = sit.icon;
+  icon.style.background = `var(--tint-${sit.tint}-bg)`;
+  icon.style.color = `var(--tint-${sit.tint})`;
+  document.getElementById('guideTitle').textContent = guide.name;
+  document.getElementById('guideDesc').textContent = g.desc;
+  document.getElementById('guideSteps').innerHTML = g.steps.map(t => `<li>${esc(t)}</li>`).join('');
+  document.getElementById('guideAvoid').textContent = PRESETS[guide.name].text;
+  document.getElementById('guideWhy').textContent = g.why;
+  renderGuideOptions();
+  renderGuideSay();
+}
+function renderGuideOptions() {
+  document.getElementById('guideOptions').innerHTML = GROUPS.map(gr => `
+    <div class="opt-group" role="radiogroup" aria-label="${gr.label}">
+      <div class="opt-label">${gr.label}</div>
+      <div class="chips">
+        ${gr.options.map(o => `<button type="button" class="chip" role="radio" aria-checked="${guide.opts[gr.key] === o}" data-key="${gr.key}" data-value="${o}"><span class="radio" aria-hidden="true"></span>${o}</button>`).join('')}
+      </div>
+    </div>`).join('');
+}
+function renderGuideSay() {
+  const r = presetResult(guide.name, guide.opts).result;
+  document.getElementById('guideSay').innerHTML = highlightHtml(PRESETS[guide.name].text, r);
+}
+document.getElementById('guideOptions').addEventListener('click', e => {
+  const chip = e.target.closest('.chip');
+  if (!chip) return;
+  document.getElementById('guidePage').classList.remove('intro');
+  const changed = guide.opts[chip.dataset.key] !== chip.dataset.value;
+  guide.opts[chip.dataset.key] = chip.dataset.value;
+  renderGuideOptions();
+  if (changed) swapGuideSay();
+  document.querySelector(`#guideOptions .chip[data-key="${chip.dataset.key}"][data-value="${chip.dataset.value}"]`).focus();
+});
+// 추천 문장 바꾸기 연출: 0.15초 동안 사라진 뒤 새 문장이 떠오름 (빠르게 연달아 눌러도 마지막 선택만 반영)
+let swapTimer;
+function swapGuideSay() {
+  const el = document.getElementById('guideSay');
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { renderGuideSay(); return; }
+  clearTimeout(swapTimer);
+  el.classList.remove('swap-in');
+  el.classList.add('swap-out');
+  swapTimer = setTimeout(() => {
+    renderGuideSay();
+    el.classList.remove('swap-out');
+    void el.offsetWidth;
+    el.classList.add('swap-in');
+  }, 150);
+}
+const guideCopy = document.getElementById('guideCopy');
+let guideCopyTimer;
+guideCopy.addEventListener('click', () => {
+  const r = presetResult(guide.name, guide.opts).result;
+  const full = r.pre + r.em + r.post;
+  try { if (navigator.clipboard) navigator.clipboard.writeText(full).catch(() => {}); } catch (e) {}
+  guideCopy.querySelector('span').textContent = '복사했어요';
+  clearTimeout(guideCopyTimer);
+  guideCopyTimer = setTimeout(() => { guideCopy.querySelector('span').textContent = '복사'; }, 1800);
+});
+document.getElementById('guideBack').addEventListener('click', () => go('situations'));
+// 지금 고른 옵션 그대로 예시 문장을 입력 화면에 채움
+document.getElementById('guideToInput').addEventListener('click', () => {
+  Object.assign(state, { text: PRESETS[guide.name].text }, guide.opts);
+  go('input');
+});
+document.getElementById('goSituations').addEventListener('click', () => go('situations'));
+
+// 홈 예시: 4초마다 다음 예시로 바뀜
+const DEMO_EXAMPLES = [
+  ['자료 왜 아직 안 주셨어요?', '지난번 요청드린 자료의 전달 일정 확인 부탁드립니다.'],
+  ['이번 주는 일이 너무 많아서 그거 못 할 것 같아요.', '이번 주는 맡은 일이 많아서 제가 맡기는 어려울 것 같아요.'],
+  ['아까 보낸 파일 잘못 보냈어요. 다시 보낼게요.', '확인이 부족했던 점 죄송합니다. 수정한 파일 바로 다시 보내드리겠습니다.']
+];
+// 가장 긴 예시(원문+변환문 약 60자)를 편하게 읽을 수 있는 시간
+const DEMO_INTERVAL = 4000;
+// 휜 화살표 (선이 그려지는 효과를 위해 선과 화살촉을 나눔)
+const ARROW_SVG = '<svg viewBox="0 0 52 72" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="arrow-line" d="M24 4 C 42 18, 42 46, 16 63"/><path class="arrow-head" d="M13 49 L 15 64 L 29 60"/></svg>';
+// 반짝임 표시 (짧은 선 두 개)
+const SPARK_SVG = '<svg class="spark" viewBox="0 0 22 22" aria-hidden="true"><path d="M5 14 L 7 3"/><path d="M11 17 L 19 9"/></svg>';
+const stack = document.getElementById('demoStack');
+const dots = document.getElementById('demoDots');
+stack.innerHTML = DEMO_EXAMPLES.map(([before, after], i) => `
+  <div class="demo-slide${i === 0 ? ' is-active' : ''}">
+    <div class="bubble-in">${before}${SPARK_SVG}</div>
+    <div class="demo-arrow">${ARROW_SVG}</div>
+    <div class="bubble-out">${after}${SPARK_SVG}</div>
+  </div>`).join('');
+dots.innerHTML = DEMO_EXAMPLES.map((_, i) => `<i${i === 0 ? ' class="on"' : ''}></i>`).join('');
+const slides = [...stack.children];
+const dotEls = [...dots.children];
+let demoIndex = 0;
+let demoPaused = false;
+setInterval(() => {
+  if (demoPaused) return;
+  slides[demoIndex].classList.remove('is-active');
+  dotEls[demoIndex].classList.remove('on');
+  demoIndex = (demoIndex + 1) % slides.length;
+  slides[demoIndex].classList.add('is-active');
+  dotEls[demoIndex].classList.add('on');
+  tapSend();
+}, DEMO_INTERVAL);
+function tapSend() {
+  const c = document.getElementById('demoCompose');
+  c.classList.remove('sent');
+  void c.offsetWidth;
+  c.classList.add('sent');
+}
+tapSend();
+// 마우스를 카드 위에 올려 두면 멈춰서 끝까지 읽을 수 있음
+const demoCard = document.querySelector('.demo-card');
+demoCard.addEventListener('mouseenter', () => { demoPaused = true; });
+demoCard.addEventListener('mouseleave', () => { demoPaused = false; });
+
+// 미리보기에서 시작 화면을 지정할 수 있도록 함
+// 처음 열 때: 주소에 맞는 화면을 보여 줌 (미리보기에서는 OT_START로 시작 화면 지정)
+state.screen = undefined;
+if (window.OT_START === 'guide') openGuide(window.OT_GUIDE || '부탁 거절');
+else if (window.OT_START && VIEWS[window.OT_START]) go(window.OT_START);
+else route();
+</script>
+</body>
+</html>
