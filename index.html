@@ -28,6 +28,7 @@
   --toast-bg: #1F2633;
   --toast-text: #FFFFFF;
   --label: #374151;
+  --note-text: #646B78;   /* 노란 바탕에서도 글씨 대비 4.5:1 이상 */
   --input-border: #D5DBE4;
   --divider: #EEF1F5;
   --chip-on-bg: #EAF2FE;
@@ -61,7 +62,7 @@
     --text: #EEF1F6; --text-body: #D3D9E2; --text-sub: #B3BCC9; --text-muted: #7F8A99;
     --primary: #4D8DF7; --primary-hover: #6A9FF8; --primary-text-hover: #7FAEF9;
     --bubble-in-bg: #222A36; --bubble-out-bg: #1A2A45; --bubble-out-border: #2D4A7A; --bubble-out-text: #CFE0FC;
-    --card-shadow: none; --toast-bg: #EEF1F6; --toast-text: #121826; --label: #C9D1DC; --input-border: #3A4556; --divider: #242C38; --chip-on-bg: #1A2A45; --chip-off-dot: #5A6576; --disabled-bg: #2E3846; --focus-ring: rgba(77, 141, 247, 0.25); --orig-bg: #1D2430; --orig-border: #2A3342; --orig-label: #A7B1BF; --conv-bg: #172338; --conv-border: #2D4A7A; --em: #7FAEF9; --sec-hover-border: #5A6576; --sec-hover-bg: #1D2430; --chev: #6B7686; --card-hover-border: #3C6CC0; --card-hover-shadow: none; --tint-blue-bg: #1E2C47; --tint-blue: #7AA7F7; --tint-green-bg: #183428; --tint-green: #6BCB92; --tint-pink-bg: #3A1E26; --tint-pink: #F07C95; --tint-purple-bg: #2A2342; --tint-purple: #A88BEA; --tint-yellow-bg: #3A3018; --tint-yellow: #F0C04D;
+    --card-shadow: none; --toast-bg: #EEF1F6; --toast-text: #121826; --label: #C9D1DC; --note-text: #A7B1BF; --input-border: #3A4556; --divider: #242C38; --chip-on-bg: #1A2A45; --chip-off-dot: #5A6576; --disabled-bg: #2E3846; --focus-ring: rgba(77, 141, 247, 0.25); --orig-bg: #1D2430; --orig-border: #2A3342; --orig-label: #A7B1BF; --conv-bg: #172338; --conv-border: #2D4A7A; --em: #7FAEF9; --sec-hover-border: #5A6576; --sec-hover-bg: #1D2430; --chev: #6B7686; --card-hover-border: #3C6CC0; --card-hover-shadow: none; --tint-blue-bg: #1E2C47; --tint-blue: #7AA7F7; --tint-green-bg: #183428; --tint-green: #6BCB92; --tint-pink-bg: #3A1E26; --tint-pink: #F07C95; --tint-purple-bg: #2A2342; --tint-purple: #A88BEA; --tint-yellow-bg: #3A3018; --tint-yellow: #F0C04D;
   }
 }
 :root[data-theme="dark"] {
@@ -69,7 +70,7 @@
   --text: #EEF1F6; --text-body: #D3D9E2; --text-sub: #B3BCC9; --text-muted: #7F8A99;
   --primary: #4D8DF7; --primary-hover: #6A9FF8; --primary-text-hover: #7FAEF9;
   --bubble-in-bg: #222A36; --bubble-out-bg: #1A2A45; --bubble-out-border: #2D4A7A; --bubble-out-text: #CFE0FC;
-  --card-shadow: none; --toast-bg: #EEF1F6; --toast-text: #121826; --label: #C9D1DC; --input-border: #3A4556; --divider: #242C38; --chip-on-bg: #1A2A45; --chip-off-dot: #5A6576; --disabled-bg: #2E3846; --focus-ring: rgba(77, 141, 247, 0.25); --orig-bg: #1D2430; --orig-border: #2A3342; --orig-label: #A7B1BF; --conv-bg: #172338; --conv-border: #2D4A7A; --em: #7FAEF9; --sec-hover-border: #5A6576; --sec-hover-bg: #1D2430; --chev: #6B7686; --card-hover-border: #3C6CC0; --card-hover-shadow: none; --tint-blue-bg: #1E2C47; --tint-blue: #7AA7F7; --tint-green-bg: #183428; --tint-green: #6BCB92; --tint-pink-bg: #3A1E26; --tint-pink: #F07C95; --tint-purple-bg: #2A2342; --tint-purple: #A88BEA; --tint-yellow-bg: #3A3018; --tint-yellow: #F0C04D;
+  --card-shadow: none; --toast-bg: #EEF1F6; --toast-text: #121826; --label: #C9D1DC; --note-text: #A7B1BF; --input-border: #3A4556; --divider: #242C38; --chip-on-bg: #1A2A45; --chip-off-dot: #5A6576; --disabled-bg: #2E3846; --focus-ring: rgba(77, 141, 247, 0.25); --orig-bg: #1D2430; --orig-border: #2A3342; --orig-label: #A7B1BF; --conv-bg: #172338; --conv-border: #2D4A7A; --em: #7FAEF9; --sec-hover-border: #5A6576; --sec-hover-bg: #1D2430; --chev: #6B7686; --card-hover-border: #3C6CC0; --card-hover-shadow: none; --tint-blue-bg: #1E2C47; --tint-blue: #7AA7F7; --tint-green-bg: #183428; --tint-green: #6BCB92; --tint-pink-bg: #3A1E26; --tint-pink: #F07C95; --tint-purple-bg: #2A2342; --tint-purple: #A88BEA; --tint-yellow-bg: #3A3018; --tint-yellow: #F0C04D;
 }
 html { height: 100%; scroll-padding-top: env(safe-area-inset-top, 0px); }
 *, *::before, *::after { box-sizing: border-box; }
@@ -174,7 +175,7 @@ main[hidden] { display: none !important; }
 
 
 /* 화면 2. 문장 입력 및 옵션 선택 */
-.input-page { max-width: 800px; margin: 0 auto; padding: 56px 32px 72px; display: flex; flex-direction: column; gap: 28px; }
+.input-page { max-width: 800px; margin: 0 auto; padding: 40px 32px 72px; display: flex; flex-direction: column; gap: 28px; }
 .page-title { margin: 0; font-size: clamp(1.75rem, 3.2vw, 2.25rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.3; }
 .field { display: flex; flex-direction: column; gap: 10px; }
 .field label { font-size: 0.9375rem; font-weight: 700; color: var(--label); }
@@ -214,7 +215,7 @@ main[hidden] { display: none !important; }
 
 
 /* 화면 3. 변환 완료 */
-.result-page { max-width: 800px; margin: 0 auto; padding: 56px 32px 72px; display: flex; flex-direction: column; gap: 24px; }
+.result-page { max-width: 800px; margin: 0 auto; padding: 40px 32px 72px; display: flex; flex-direction: column; gap: 24px; }
 .compare { display: flex; flex-direction: column; align-items: stretch; gap: 10px; }
 .box-orig { padding: 20px 24px; border-radius: 14px; background: var(--orig-bg); border: 1px solid var(--orig-border); display: flex; flex-direction: column; gap: 8px; }
 .box-orig .box-label { font-size: 0.8125rem; font-weight: 700; color: var(--orig-label); }
@@ -244,9 +245,9 @@ main[hidden] { display: none !important; }
 .hard-note[hidden] { display: none; }
 .hard-msg { display: flex; align-items: flex-start; gap: 10px; color: var(--tint-yellow); flex: 1 1 260px; }
 .hard-msg svg { flex-shrink: 0; margin-top: 2px; }
-.hard-msg p { margin: 0; font-size: 0.9375rem; font-weight: 500; line-height: 1.6; color: var(--text); }
-.hard-btn { display: inline-flex; align-items: center; gap: 4px; height: 44px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--input-border); background: var(--surface); color: var(--primary); font-size: 0.9375rem; font-weight: 700; flex-shrink: 0; }
-.hard-btn:hover { border-color: var(--primary); }
+.hard-msg p { margin: 0; font-size: 0.9375rem; font-weight: 500; line-height: 1.65; color: var(--note-text); letter-spacing: -0.005em; }
+.hard-msg p span { display: block; text-wrap: balance; }   /* 두 문장을 줄을 나눠 보여 주고, 줄 길이를 고르게 */
+.hard-msg p .nb { display: inline; white-space: nowrap; }  /* 책 이름이 중간에서 끊기지 않게 */
 .result-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .btn-copy, .btn-edit {
   flex: 1 1 220px; display: flex; align-items: center; justify-content: center; gap: 8px;
@@ -259,7 +260,7 @@ main[hidden] { display: none !important; }
 
 
 /* 화면 4. 상황별 표현 */
-.situations-page { max-width: 960px; margin: 0 auto; padding: 56px 32px 72px; display: flex; flex-direction: column; gap: 32px; }
+.situations-page { max-width: 960px; margin: 0 auto; padding: 40px 32px 72px; display: flex; flex-direction: column; gap: 32px; }
 .sit-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 16px; }
 .sit-card {
   display: flex; align-items: center; gap: 16px;
@@ -279,6 +280,7 @@ main[hidden] { display: none !important; }
 .guide-page { max-width: 800px; margin: 0 auto; padding: 40px 32px 72px; display: flex; flex-direction: column; gap: 24px; }
 .back-link { align-self: flex-start; display: inline-flex; align-items: center; gap: 4px; min-height: 40px; padding: 0; border: none; background: none; color: var(--text-sub); font-size: 0.9375rem; font-weight: 500; }
 .back-link:hover { color: var(--primary); }
+.back-link + .page-title { margin-top: -8px; }
 .guide-head { display: flex; align-items: center; gap: 16px; }
 .guide-head .sit-icon { width: 56px; height: 56px; }
 .guide-head .sit-icon svg { width: 26px; height: 26px; }
@@ -303,8 +305,10 @@ main[hidden] { display: none !important; }
 .steps li::before { content: counter(step); flex-shrink: 0; width: 22px; height: 22px; margin-top: 1px; border-radius: 50%; background: var(--chip-on-bg); color: var(--primary); font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; justify-content: center; }
 .avoid-quote { margin: 0; padding: 12px 14px; border-radius: 10px; background: var(--orig-bg); color: var(--text-sub); font-size: 0.9375rem; line-height: 1.6; text-decoration: line-through; text-decoration-color: var(--text-muted); }
 .avoid-why { margin: 0; font-size: 0.875rem; line-height: 1.6; color: var(--text-sub); }
-.guide-cta { display: flex; flex-direction: column; gap: 8px; }
+.guide-cta { display: flex; flex-direction: column; gap: 12px; }
 .guide-cta p { margin: 0; text-align: center; font-size: 0.875rem; color: var(--text-muted); }
+/* 결과 화면의 '완료하기'와 같은 흰 버튼 */
+.guide-done { flex: none; width: 100%; }
 .br-mobile { display: none; }
 
 
@@ -335,7 +339,9 @@ main[hidden] { display: none !important; }
 .home.intro > *,
 .input-page.intro > *,
 .guide-page.intro > *,
+.situations-page.intro > .back-link,
 .situations-page.intro > .page-title,
+.result-page.intro > .back-link,
 .situations-page.intro .sit-card,
 .result-page.intro > .page-title,
 .result-page.intro .box-orig,
@@ -347,6 +353,7 @@ main[hidden] { display: none !important; }
 .guide-page.intro > :nth-child(3) { animation-delay: .14s; }
 .input-page.intro > :nth-child(4),
 .guide-page.intro > :nth-child(4) { animation-delay: .21s; }
+.input-page.intro > :nth-child(5) { animation-delay: .28s; }
 .guide-page.intro > :nth-child(5) { animation-delay: .28s; }
 .guide-page.intro > :nth-child(6) { animation-delay: .35s; }
 /* 상황 카드는 한 장씩 차례로 */
@@ -411,11 +418,11 @@ main[hidden] { display: none !important; }
   .home-desc { font-size: 1rem; line-height: 1.65; }
   .home-desc br { display: none; }
   .home-actions { gap: 8px; }
-  .input-page { padding: 32px 20px 56px; gap: 24px; }
+  .input-page { padding: 20px 20px 56px; gap: 24px; }
   .options { padding: 4px 18px; }
   .source { font-size: 16px; line-height: 1.6; padding: 14px 16px; }
-  .result-page { padding: 32px 20px 56px; gap: 20px; }
-  .situations-page { padding: 32px 20px 56px; gap: 24px; }
+  .result-page { padding: 20px 20px 56px; gap: 20px; }
+  .situations-page { padding: 20px 20px 56px; gap: 24px; }
   .sit-grid { gap: 12px; }
   .sit-card { min-height: 80px; padding: 16px 18px; }
   .guide-page { padding: 20px 20px 56px; gap: 20px; }
@@ -450,6 +457,49 @@ main[hidden] { display: none !important; }
   .toast, .demo-slide, .demo-dots i { transition: none; }
   .demo-compose.sent .compose-send { animation: none; }
   .demo-slide.is-active .bubble-in, .demo-slide.is-active .bubble-out, .demo-slide.is-active .spark, .demo-slide.is-active .arrow-line, .demo-slide.is-active .arrow-head { animation: none; }
+}
+
+/* ===== 휴대폰 홈: 카카오톡 등 앱 안 브라우저에서도 홈 전체가 한 화면에 보이도록 압축 =====
+   (앱 안 브라우저는 위아래 도구 막대 때문에 실제로 보이는 높이가 600px 안팎) */
+@media (max-width: 767px) {
+  .header-inner { padding: 10px 20px; }
+  /* 버튼 묶음과 예시 카드 사이 간격: 화면이 넉넉하면 넓게(최대 56px), 낮으면 좁게(최소 16px) */
+  .home { padding: 18px 20px 20px; gap: 22px; gap: clamp(16px, calc(100svh - 590px), 56px); }
+  .home-copy { gap: 20px; }
+  .home-text { gap: 8px; }
+  .home-desc { font-size: 0.9375rem; line-height: 1.55; }
+  /* 두 버튼 사이: 컴퓨터와 같은 비율(버튼 높이의 약 절반)만큼 띄움 */
+  .home-actions { gap: 15px; }
+  .cta { height: 50px; padding: 0 26px; font-size: 1rem; }
+  .sub { min-height: 40px; }
+  /* 예시 카드: 같은 구성을 유지하되 여백·글씨·화살표를 작게 */
+  .demo-card { max-width: none; padding: 20px 18px 12px; gap: 10px; }
+  .bubble-in, .bubble-out { font-size: 0.875rem; line-height: 1.5; padding: 10px 14px; border-radius: 16px; }
+  .bubble-out::after { left: 18px; bottom: -9px; width: 15px; height: 10px; }
+  .bubble-in .spark { top: -19px; right: -4px; width: 18px; height: 18px; }
+  .bubble-out .spark { top: -14px; right: -19px; width: 18px; height: 18px; }
+  .demo-arrow { width: 34px; height: 42px; margin: 2px 0 4px 40%; }
+  .demo-dots { margin-top: 2px; }
+  .demo-compose { padding-top: 10px; }
+  .compose-plus { width: 26px; height: 26px; }
+  .compose-field { height: 30px; }
+  .compose-send { width: 22px; height: 22px; }
+}
+/* 화면 높이가 특히 낮은 휴대폰(작은 기종 + 앱 안 브라우저)에서는 한 단계 더 압축 */
+@media (max-width: 767px) and (max-height: 620px) {
+  .home { padding-top: 14px; gap: 16px; }
+  .home-copy { gap: 14px; }
+  .home h1 { font-size: 1.625rem; }
+  .cta { height: 46px; }
+  .home-actions { gap: 12px; }
+  .demo-card { padding: 16px 16px 10px; gap: 8px; }
+  .demo-arrow { height: 34px; }
+}
+/* 아주 낮은 화면(아이폰 SE + 카카오톡 등): 순서 점은 숨기고 예시만 보여 줌 */
+@media (max-width: 767px) and (max-height: 570px) {
+  .demo-dots { display: none; }
+  .home-copy { gap: 12px; }
+  .home { padding-top: 8px; }
 }
 </style>
 </head>
@@ -496,6 +546,10 @@ main[hidden] { display: none !important; }
 <!-- 화면 2. 문장 입력 및 옵션 선택 -->
 <main id="view-input" hidden>
   <div class="input-page" id="inputPage">
+    <button type="button" class="back-link" id="inputBack">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+      <span>처음으로</span>
+    </button>
     <h1 class="page-title">회사 말투로 바꾸기</h1>
     <div class="field">
       <label for="source">하고 싶은 말</label>
@@ -509,6 +563,10 @@ main[hidden] { display: none !important; }
 <!-- 화면 3. 변환 완료 -->
 <main id="view-result" hidden>
   <div class="result-page" id="resultPage">
+    <button type="button" class="back-link" id="resultBack">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+      <span>문장 다시 입력하기</span>
+    </button>
     <h1 class="page-title">변환 완료</h1>
     <div class="compare">
       <section class="box-orig" aria-label="기존 문장">
@@ -528,11 +586,8 @@ main[hidden] { display: none !important; }
     <section class="hard-note" id="resHard" aria-label="자동 변환 안내" hidden>
       <div class="hard-msg">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5"/><path d="M12 16.5h.01"/></svg>
-        <p>이 문장은 자동으로 바꾸기 어려워요.<br>상황별 예문을 참고해 보세요.</p>
+        <p><span>샘플에 없는 문장이라 기본 규칙(국립국어원 <span class="nb">『표준 언어 예절』의</span> 직장 언어 예절 등)으로 바꿨어요.</span><span>실제 서비스에서는 AI가 문맥까지 살펴 더 자연스럽게 다듬어요.</span></p>
       </div>
-      <button type="button" class="hard-btn" id="hardToSituations">상황별 예문 보기
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
-      </button>
     </section>
     <section class="changes" id="resChanges" aria-label="이렇게 바뀌었어요">
       <h2>이렇게 바뀌었어요</h2>
@@ -540,7 +595,7 @@ main[hidden] { display: none !important; }
     </section>
     <div class="result-actions">
       <button type="button" class="btn-copy" id="copyBtn"></button>
-      <button type="button" class="btn-edit" id="editBtn">문장 수정하기</button>
+      <button type="button" class="btn-edit" id="editBtn">완료하기</button>
     </div>
   </div>
 </main>
@@ -548,6 +603,10 @@ main[hidden] { display: none !important; }
 <!-- 화면 4. 상황별 표현 -->
 <main id="view-situations" hidden>
   <div class="situations-page" id="sitPage">
+    <button type="button" class="back-link" id="sitBack">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+      <span>처음으로</span>
+    </button>
     <h1 class="page-title">이런 상황에는 어떻게 말하지?</h1>
     <div class="sit-grid" id="sitGrid"></div>
   </div>
@@ -591,7 +650,7 @@ main[hidden] { display: none !important; }
     </div>
     <div class="guide-cta">
       <button type="button" class="cta-block" id="guideToInput">내 상황에 맞게 직접 바꿔 보기</button>
-      <p>예시 문장이 입력창에 채워져요.<br class="br-mobile"> 내 상황에 맞게 고쳐 보세요.</p>
+      <button type="button" class="btn-edit guide-done" id="guideDone">완료하기</button>
     </div>
   </div>
 </main>
@@ -725,7 +784,7 @@ function route() {
 }
 window.addEventListener('hashchange', route);
 document.getElementById('logo').addEventListener('click', () => go('home'));
-document.getElementById('startInput').addEventListener('click', () => { load('기본 예시'); go('input'); });
+document.getElementById('startInput').addEventListener('click', () => { load('기본 예시'); inputFrom = 'home'; go('input'); });
 
 /* ===== 화면 2 ===== */
 const GROUPS = [
@@ -777,6 +836,7 @@ source.addEventListener('input', fitSource);
 window.addEventListener('resize', () => { if (state.screen === 'input') fitSource(); });
 if (document.fonts) document.fonts.ready.then(() => { if (state.screen === 'input') fitSource(); });
 function renderInput() {
+  updateBackLinks();
   source.value = state.text;
   renderOptions();
   syncButton();
@@ -1379,11 +1439,12 @@ function renderResult() {
   const conv = document.getElementById('resConverted');
   conv.hidden = !ok;
   document.getElementById('resNone').hidden = ok;
-  // 자동 변환이 어려운 문장: 안내와 상황별 예문 버튼을 보여 주고, '기본 규칙으로 바꿨어요' 설명은 숨김
+  // 샘플이 아닌 문장: 변환 방식 안내 상자를 보여 줌
+  const byRule = ok && !!lastResult.byRule;
   const hard = ok && !!lastResult.hard;
-  document.getElementById('resHard').hidden = !hard;
+  document.getElementById('resHard').hidden = !byRule;
   document.getElementById('resChanges').hidden = !ok || lastResult.changes.length === 0;
-  document.getElementById('resRuleNote').hidden = !(ok && lastResult.byRule) || hard;
+  document.getElementById('resRuleNote').hidden = true;   // 예전 회색 한 줄 안내는 안내 상자로 대체
   // 결과가 나올 때마다 등장 효과를 처음부터 다시 재생
   ['resConvBox', 'resHard', 'resChanges', 'resRuleNote'].forEach(id => {
     const el = document.getElementById(id);
@@ -1411,8 +1472,20 @@ copyBtn.addEventListener('click', () => {
   clearTimeout(copyTimer);
   copyTimer = setTimeout(() => { copyBtn.innerHTML = COPY_LABEL; }, 1800);
 });
-document.getElementById('editBtn').addEventListener('click', () => go('input', { intro: false }));
-document.getElementById('hardToSituations').addEventListener('click', () => go('situations'));
+// '완료하기': 결과 확인을 마치고 홈으로 돌아감
+document.getElementById('editBtn').addEventListener('click', () => go('home'));
+
+/* ===== 화면 위쪽 이전 화면 링크 =====
+ * 입력 화면은 어디서 왔는지(홈 / 상황 가이드)에 따라 문구와 돌아갈 곳이 달라짐 */
+let inputFrom = 'home';
+function updateBackLinks() {
+  const label = document.querySelector('#inputBack span');
+  label.textContent = inputFrom === 'guide' && guide.name ? `${guide.name} 예문` : '처음으로';
+}
+document.getElementById('inputBack').addEventListener('click', () => go(inputFrom === 'guide' && guide.name ? 'guide' : 'home'));
+document.getElementById('resultBack').addEventListener('click', () => go('input', { intro: false }));
+document.getElementById('sitBack').addEventListener('click', () => go('home'));
+
 
 
 /* ===== 화면 4 ===== */
@@ -1539,9 +1612,12 @@ guideCopy.addEventListener('click', () => {
   guideCopyTimer = setTimeout(() => { guideCopy.querySelector('span').textContent = '복사'; }, 1800);
 });
 document.getElementById('guideBack').addEventListener('click', () => go('situations'));
+// '완료하기': 상황 가이드를 마치고 홈으로 돌아감 (결과 화면의 완료하기와 같음)
+document.getElementById('guideDone').addEventListener('click', () => go('home'));
 // 지금 고른 옵션 그대로 예시 문장을 입력 화면에 채움
 document.getElementById('guideToInput').addEventListener('click', () => {
   Object.assign(state, { text: PRESETS[guide.name].text }, guide.opts);
+  inputFrom = 'guide';
   go('input');
 });
 document.getElementById('goSituations').addEventListener('click', () => go('situations'));
@@ -1595,6 +1671,8 @@ demoCard.addEventListener('mouseleave', () => { demoPaused = false; });
 // 미리보기에서 시작 화면을 지정할 수 있도록 함
 // 처음 열 때: 주소에 맞는 화면을 보여 줌 (미리보기에서는 OT_START로 시작 화면 지정)
 state.screen = undefined;
+// 미리보기용: 결과 화면을 특정 문장으로 바로 열기
+if (window.OT_START === 'result' && window.OT_TEXT) { state.text = window.OT_TEXT; state.target = '외부 고객'; state.tone = '격식 있게'; state.channel = '메신저'; }
 if (window.OT_START === 'guide') openGuide(window.OT_GUIDE || '부탁 거절');
 else if (window.OT_START && VIEWS[window.OT_START]) go(window.OT_START);
 else route();
